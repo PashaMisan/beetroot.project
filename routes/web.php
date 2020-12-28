@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Admin panel rout groups
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'admin-panel'
+], function() {
+    Route::get('/', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
+});
