@@ -9,10 +9,11 @@
 
 ## To start
 
-- Run the <b>"composer install"</b> command.
-- Create <b>.env</b> file.
+- Run the <b>composer install</b> command.
+- Create and edit <b>.env</b> file.
 - Run the <b>php artisan key:generate</b> command.
-
+- Run the <b>php artisan migrate</b> command. 
+To create an administrator profile, add the <b>--seed</b> option (e-mail: <b>admin@gmail.com</b>, password: <b>admin</b>).
 
 ## About Laravel
 
