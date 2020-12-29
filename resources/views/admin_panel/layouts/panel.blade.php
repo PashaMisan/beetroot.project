@@ -231,6 +231,11 @@
                                             Sections
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('sections.index') }}">
+                                            Products
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>

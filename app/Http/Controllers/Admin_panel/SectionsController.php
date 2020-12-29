@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin_panel;
 
-use App\Section;
+use App\Admin_panel_models\Section;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
