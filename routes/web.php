@@ -25,4 +25,7 @@ Route::group([
     'prefix' => 'admin-panel'
 ], function() {
     Route::get('/', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
+    Route::resource('sections', 'Admin_panel\SectionsController')->except([
+        'create', 'show'
+    ]);
 });
