@@ -16,6 +16,7 @@
 });*/
 
 Route::get('/', 'MainPageController@index')->name('main');
+Route::get('/menu', 'MenuPageController@index')->name('menu');
 
 Auth::routes();
 
