@@ -75,7 +75,7 @@
 
                                                     @if($product->status === 1)
                                                         <a href="javascript:void(0)" class="text-success"
-                                                           id="{{$product->id}}"
+                                                           id="product{{$product->id}}"
                                                            onclick="changeStatus({{$product->id}})">
                                                             On
                                                         </a>

@@ -1,5 +1,5 @@
 function changeStatus(id) {
-    var $status_botton = $('#' + id);
+    var $status_botton = $('#product' + id);
     $.ajax({
         url: change_product_status_ajax,
         type: "POST",
@@ -11,13 +11,12 @@ function changeStatus(id) {
         success: function (data) {
             if (data.status){
                 $status_botton.text('On');
-                $status_botton.toggleClass('text-danger text-success');
             } else {
                 $status_botton.text('Off');
-                $status_botton.toggleClass('text-success text-danger');
             }
+            $status_botton.toggleClass('text-success text-danger');
         },
-        error: function (msg) {
+        error: function () {
             alert('Ошибка');
         }
     });

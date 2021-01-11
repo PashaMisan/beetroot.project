@@ -14,5 +14,6 @@ class Product extends Model
             'status' => $this->status ? 0 : 1
         ]);
 
+        return $this->status;
     }
 }
