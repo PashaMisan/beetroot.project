@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Admin_panel_models\Section;
 
 class MenuPageController extends Controller
 {
     public function index()
     {
-        return view('menu');
+        return view('menu', [
+            'menu' => Section::with(['products' => function ($query) {
+                $query->where('status', 1);
+            }])->get()
+        ]);
     }
 }

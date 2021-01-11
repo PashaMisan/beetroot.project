@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('admin_panel/assets/vendor/charts/c3charts/c3.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_panel/assets/vendor/fonts/flag-icon-css/flag-icon.min.css') }}">
     <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
-</head>
+</head><!-- Optional JavaScript -->
 
 <body>
 <!-- ============================================================== -->
@@ -1049,6 +1049,7 @@
 <script src="{{ asset('admin_panel/assets/vendor/charts/c3charts/d3-5.4.0.min.js') }}"></script>
 <script src="{{ asset('admin_panel/assets/vendor/charts/c3charts/C3chartjs.js') }}"></script>
 <script src="{{ asset('admin_panel/assets/libs/js/dashboard-ecommerce.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 
 </html>

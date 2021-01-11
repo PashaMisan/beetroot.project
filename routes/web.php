@@ -29,8 +29,11 @@ Route::group([
 ], function() {
     Route::get('/', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
     Route::resource('sections', 'Admin_panel\SectionsController')->except(['create', 'show']);
-    Route::get('products\status\{id}', 'Admin_panel\ProductsController@changeStatus')->name('change_product_status');
+    Route::get('products\status\{product}', 'Admin_panel\ProductsController@changeStatus')->name('change_product_status');
     Route::resource('products', 'Admin_panel\ProductsController');
+
+    Route::post('product/change-status', 'Admin_panel\ProductsController@changeStatusAjax')
+        ->name('change_product_status_ajax');
 });
 
 

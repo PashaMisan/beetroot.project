@@ -1,3 +1,4 @@
+<script src="{{ asset('admin_panel/product/product.js') }}"></script>
 @extends('admin_panel.layouts.panel')
 
 @section('content')
@@ -73,14 +74,15 @@
                                                 <td>
 
                                                     @if($product->status === 1)
-                                                        <a class="text-success"
-                                                           href="{{ route('change_product_status', ['id' => $product->id]) }}">
+                                                        <a href="javascript:void(0)" class="text-success"
+                                                           id="{{$product->id}}"
+                                                           onclick="changeStatus({{$product->id}})">
                                                             On
                                                         </a>
-                                                        </span>
                                                     @else
-                                                        <a class="text-danger"
-                                                           href="{{ route('change_product_status', ['id' => $product->id]) }}">
+                                                        <a href="javascript:void(0)" class="text-danger"
+                                                           id="{{$product->id}}"
+                                                           onclick="changeStatus({{$product->id}})">
                                                             Off
                                                         </a>
                                                     @endif
@@ -129,3 +131,8 @@
     </div>
 
 @endsection
+
+<script>
+    var change_product_status_ajax = '{{ route('change_product_status_ajax')}}';
+    var csrf = '{{ csrf_token() }}';
+</script>

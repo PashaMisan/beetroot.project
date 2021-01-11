@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //
+    protected $fillable = ['name', 'status'];
+
+    public function changeStatus()
+    {
+        $this->update([
+            'status' => $this->status ? 0 : 1
+        ]);
+
+    }
 }

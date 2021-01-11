@@ -50,7 +50,11 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+
         //TODO Добавить валидацию Request
+//        $product = new Product([
+//            'name' => $request->product_name
+//        ]);
         $product = new Product();
         $product->name = $request->product_name;
         $product->section_id = $request->section_id;
@@ -87,10 +91,10 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         return view('admin_panel.products_edit', [
-        'user' => Auth::user(),
-        'product' => $product,
-        'sections' => Section::all(),
-    ]);
+            'user' => Auth::user(),
+            'product' => $product,
+            'sections' => Section::all(),
+        ]);
     }
 
     /**
@@ -102,14 +106,20 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //TODO Добавить валидацию Request;
-        $product->name = $request->product_name;
-        $product->section_id = $request->section_id;
-        $product->description = $request->product_description;
-        $product->weight = $request->product_weight;
-        $product->price = $request->product_price;
-        $product->status = ((isset($request->status)) ? 1 : 0);
-        $product->save();
+//        $product->update($request->all());
+        $product->update([
+            'name' => $request->product_name
+        ]);
+
+//        dd($request->all());
+//        //TODO Добавить валидацию Request;
+//        $product->name = $request->product_name;
+//        $product->section_id = $request->section_id;
+//        $product->description = $request->product_description;
+//        $product->weight = $request->product_weight;
+//        $product->price = $request->product_price;
+//        $product->status = ((isset($request->status)) ? 1 : 0);
+//        $product->save();
 
         return redirect(route('products.index'));
     }
@@ -128,20 +138,22 @@ class ProductsController extends Controller
 
 
     /**
-     * @param Request $id
+     * @param Product $product
      * @return Application|RedirectResponse|Redirector
      */
-    public function changeStatus($id)
+    public function changeStatus(Product $product)
     {
-        $product = Product::find($id);
+        $product->changeStatus();
 
-        if($product->status === 0){
-            $product->status = 1;
-        } else {
-            $product->status = 0;
-        }
-
-        $product->save();
         return redirect(route('products.index'));
+    }
+
+    public function changeStatusAjax(Request $request)
+    {
+        $product = Product::find($request->id);
+
+        return response()->json([
+            'status' => $product->changeStatus()
+        ]);
     }
 }
