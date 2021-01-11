@@ -73,7 +73,7 @@
                                     @else
 
                                         <tr>
-                                            <th scope="row">{{ $uniqSection->id }}</th>
+                                            <th scope="row">{{ ++$key }}</th>
                                             <td class="text-center">{{ $uniqSection->name }}</td>
                                             <td></td>
                                         </tr>

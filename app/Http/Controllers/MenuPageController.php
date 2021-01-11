@@ -8,10 +8,14 @@ class MenuPageController extends Controller
 {
     public function index()
     {
+        $menu = Section::with(['products' => function ($query) {
+            $query->where('status', 1);
+        }])->get();
+
         return view('menu', [
-            'menu' => Section::with(['products' => function ($query) {
-                $query->where('status', 1);
-            }])->get()
+            'menu' => $menu->filter(function ($value) {
+                return (!empty($value->products[0])) ? $value : false;
+            })->values()
         ]);
     }
 }

@@ -81,7 +81,7 @@
                                                         </a>
                                                     @else
                                                         <a href="javascript:void(0)" class="text-danger"
-                                                           id="{{$product->id}}"
+                                                           id="product{{$product->id}}"
                                                            onclick="changeStatus({{$product->id}})">
                                                             Off
                                                         </a>
