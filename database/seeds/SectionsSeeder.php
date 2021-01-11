@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 
 class SectionsSeeder extends Seeder
 {
@@ -15,10 +14,17 @@ class SectionsSeeder extends Seeder
     public function run()
     {
         $sections = [];
+        $sectionsName = [
+            'STARTERS',
+            'SEAFOOD',
+            'DESSERTS',
+            'MAIN DISHES'
+        ];
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < count($sectionsName); $i++) {
             $sections[] = [
-                'name' => Str::random(20),
+                'name' => $sectionsName[$i],
+                'position' => 1 + $i,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ];

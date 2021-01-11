@@ -10,7 +10,9 @@ class MenuPageController extends Controller
     {
         $menu = Section::with(['products' => function ($query) {
             $query->where('status', 1);
-        }])->get();
+        }])
+            ->orderBy('position')
+            ->get();
 
         return view('menu', [
             'menu' => $menu->filter(function ($value) {

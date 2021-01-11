@@ -42,6 +42,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Position</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -49,8 +50,19 @@
 
                                 @foreach($sections as $key => $section)
                                     <tr>
-                                        <th scope="row">{{ ++$key }}</th>
-                                        <td class="text-center" contenteditable="true">{{ $section->name }}</td>
+                                        <th scope="row">{{ $section->position }}</th>
+                                        <td class="text-center" >{{ $section->name }}</td>
+                                        <td>
+                                            <div class="row d-flex justify-content-center">
+                                                <a href="{{ route('position_up', $position = $section->position) }}"
+                                                   class="col-sm-6 col-md-4 col-lg-3 f-icon">
+                                                    <i class="fas fa-arrow-up"></i>
+                                                </a>
+                                                <a href="{{ route('position_down', $position = $section->position) }}"
+                                                   class="col-sm-6 col-md-4 col-lg-3 f-icon">
+                                                    <i class="fas fa-arrow-down"></i></a>
+                                            </div>
+                                        </td>
                                         <td>
 
                                             <a href="{{ route('sections.edit', ['id' => $section->id]) }}"

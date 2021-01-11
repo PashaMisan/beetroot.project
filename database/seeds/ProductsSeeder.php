@@ -1,5 +1,6 @@
 <?php
 
+use App\Admin_panel_models\Section;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class ProductsSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             $products[] = [
                 'name' => Str::random(20),
-                'section_id' => rand(1, 3),
+                'section_id' => rand(1, Section::count()),
                 'description' => Str::random(150),
                 'weight' => rand(100, 400),
                 'price' => rand(40, 400),

@@ -11,10 +11,6 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
 Route::get('/', 'MainPageController@index')->name('main');
 Route::get('/menu', 'MenuPageController@index')->name('menu');
 
@@ -26,14 +22,25 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group([
     'middleware' => 'auth',
     'prefix' => 'admin-panel'
-], function() {
+], function () {
+    //Dashboard
     Route::get('/', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
-    Route::resource('sections', 'Admin_panel\SectionsController')->except(['create', 'show']);
-    Route::get('products\status\{product}', 'Admin_panel\ProductsController@changeStatus')->name('change_product_status');
-    Route::resource('products', 'Admin_panel\ProductsController');
 
+
+    //Sections
+    Route::resource('sections', 'Admin_panel\SectionsController')->except(['create', 'show']);
+    Route::get('sections/{position}/position_up', 'Admin_panel\SectionsController@positionUp')->name('position_up');
+    Route::get('sections/{position}/position_down', 'Admin_panel\SectionsController@positionDown')->name('position_down');
+
+
+    //Products
+    Route::resource('products', 'Admin_panel\ProductsController');
+    Route::get('products\status\{product}', 'Admin_panel\ProductsController@changeStatus')
+        ->name('change_product_status');
     Route::post('product/change-status', 'Admin_panel\ProductsController@changeStatusAjax')
         ->name('change_product_status_ajax');
 });
+
+
 
 

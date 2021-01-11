@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin_panel;
 
 use App\Admin_panel_models\Section;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +24,7 @@ class SectionsController extends Controller
     {
         return view('admin_panel.sections', [
             'user' => Auth::user(),
-            'sections' => Section::all()]);
+            'sections' => Section::orderBy('position')->get()]);
     }
 
     /**
@@ -47,6 +48,7 @@ class SectionsController extends Controller
         //TODO Добавить валидацию реквеста
         $section = new Section();
         $section->name = $request->section_name;
+        $section->position = Section::max('position') + 1;
         $section->save();
         return redirect(route('sections.index'));
     }
@@ -96,11 +98,28 @@ class SectionsController extends Controller
      *
      * @param Section $section
      * @return Application|RedirectResponse|Redirector
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Section $section)
     {
         $section->delete();
+        Section::incrementPositions();
+        return redirect(route('sections.index'));
+    }
+
+    public function positionUp($position)
+    {
+        if ((int)$position !== 1) {
+            Section::swapping($position);
+        }
+        return redirect(route('sections.index'));
+    }
+
+    public function positionDown($position)
+    {
+        if ((int)$position !== Section::max('position')) {
+            Section::swapping($position + 1);
+        }
         return redirect(route('sections.index'));
     }
 }

@@ -55,7 +55,7 @@
                                             @csrf
                                             @method('PUT')
                                             <tr>
-                                                <th scope="row">{{ ++$key }}</th>
+                                                <th scope="row">{{ $uniqSection->position }}</th>
                                                 <td>
                                                     <div class="form-group">
                                                         <label for="edit_section_name" class="col-form-label"></label>
@@ -73,7 +73,7 @@
                                     @else
 
                                         <tr>
-                                            <th scope="row">{{ ++$key }}</th>
+                                            <th scope="row">{{ $uniqSection->position }}</th>
                                             <td class="text-center">{{ $uniqSection->name }}</td>
                                             <td></td>
                                         </tr>
