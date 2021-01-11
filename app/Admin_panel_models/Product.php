@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'status'];
+    protected $fillable = ['name', 'section_id', 'description', 'weight', 'price', 'status'];
 
     public function changeStatus()
     {

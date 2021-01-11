@@ -40,7 +40,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="product_name" class="col-form-label">Name</label>
-                                    <input id="product_name" type="text" class="form-control" name="product_name"
+                                    <input id="product_name" type="text" class="form-control" name="name"
                                            value="{{ $product->name }}">
                                 </div>
 
@@ -61,18 +61,20 @@
                                 <div class="form-group">
                                     <label for="product_description">Description</label>
                                     <textarea class="form-control" id="product_description" rows="5"
-                                              name="product_description">{{ $product->description }}</textarea>
+                                              name="description">{{ $product->description }}</textarea>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Weight</label>
                                     <div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
+                                        <label for="product_weight"></label>
                                         <input id="product_weight" type="text" class="form-control"
-                                               name="product_weight" value="{{ $product->weight }}">
+                                               name="weight" value="{{ $product->weight }}">
                                     </div>
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Price</label>
                                     <div class="col-sm-4 col-lg-3">
-                                        <input id="product_price" type="text" class="form-control" name="product_price"
+                                        <label for="product_price"></label>
+                                        <input id="product_price" type="text" class="form-control" name="price"
                                                value="{{ $product->price }}">
                                     </div>
                                 </div>
@@ -80,7 +82,7 @@
                                 <div class="row">
                                     <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
                                         <label class="be-checkbox custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="status"
+                                            <input type="checkbox" class="custom-control-input" name="status" value="1"
                                                    @if($product->status)
                                                    checked
                                                 @endif

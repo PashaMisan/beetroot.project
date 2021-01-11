@@ -106,20 +106,10 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-//        $product->update($request->all());
-        $product->update([
-            'name' => $request->product_name
-        ]);
-
-//        dd($request->all());
-//        //TODO Добавить валидацию Request;
-//        $product->name = $request->product_name;
-//        $product->section_id = $request->section_id;
-//        $product->description = $request->product_description;
-//        $product->weight = $request->product_weight;
-//        $product->price = $request->product_price;
-//        $product->status = ((isset($request->status)) ? 1 : 0);
-//        $product->save();
+        //TODO Добавить валидацию Request;
+        $data = $request->all();
+        $data['status'] = isset($data['status']) ? 1 : 0;
+        $product->update($data);
 
         return redirect(route('products.index'));
     }
