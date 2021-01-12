@@ -30,13 +30,16 @@ Route::group([
     //Sections
     Route::resource('sections', 'Admin_panel\SectionsController')->except(['create', 'show']);
     Route::get('sections/{position}/position_up', 'Admin_panel\SectionsController@positionUp')->name('position_up');
-    Route::get('sections/{position}/position_down', 'Admin_panel\SectionsController@positionDown')->name('position_down');
+    Route::get('sections/{position}/position_down', 'Admin_panel\SectionsController@positionDown')
+        ->name('position_down');
 
 
     //Products
     Route::resource('products', 'Admin_panel\ProductsController');
-    Route::get('products\status\{product}', 'Admin_panel\ProductsController@changeStatus')
-        ->name('change_product_status');
+    Route::get('product/{position}/position_up/{section}', 'Admin_panel\ProductsController@positionUp')
+        ->name('p_position_up');
+    Route::get('products/{position}/position_down/{section}', 'Admin_panel\ProductsController@positionDown')
+        ->name('p_position_down');
     Route::post('product/change-status', 'Admin_panel\ProductsController@changeStatusAjax')
         ->name('change_product_status_ajax');
 });

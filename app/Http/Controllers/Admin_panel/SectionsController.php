@@ -74,7 +74,7 @@ class SectionsController extends Controller
     {
         return view('admin_panel.section_edit', [
             'user' => Auth::user(),
-            'sections' => Section::all(),
+            'sections' => Section::all()->sortBy('position'),
             'section' => $section]);
     }
 

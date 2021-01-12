@@ -17,17 +17,20 @@ class ProductsSeeder extends Seeder
     {
         $products = [];
 
-        for ($i = 0; $i < 20; $i++) {
-            $products[] = [
-                'name' => Str::random(20),
-                'section_id' => rand(1, Section::count()),
-                'description' => Str::random(150),
-                'weight' => rand(100, 400),
-                'price' => rand(40, 400),
-                'status' => rand(0, 1),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-            ];
+        foreach (Section::all() as $key => $val) {
+            for ($i = 0; $i < 5; $i++) {
+                $products[] = [
+                    'name' => Str::random(20),
+                    'section_id' => $key + 1,
+                    'position' => $i + 1,
+                    'description' => Str::random(150),
+                    'weight' => rand(100, 400),
+                    'price' => rand(40, 400),
+                    'status' => rand(0, 1),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+            }
         }
 
         DB::table('products')->insert($products);

@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 200);
             $table->bigInteger('section_id')->unsigned();
+            $table->integer('position');
             $table->text('description');
             $table->integer('weight');
             $table->integer('price');

@@ -25,7 +25,11 @@ class ProductsController extends Controller
     {
         return view('admin_panel.products', [
             'user' => Auth::user(),
-            'sections' => Section::with('products')->get()
+            'sections' => Section::with(array('products' => function ($products) {
+                $products->orderBy('position');
+            }))
+                ->orderBy('position')
+                ->get()
         ]);
     }
 
@@ -123,17 +127,7 @@ class ProductsController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect(route('products.index'));
-    }
-
-
-    /**
-     * @param Product $product
-     * @return Application|RedirectResponse|Redirector
-     */
-    public function changeStatus(Product $product)
-    {
-        $product->changeStatus();
+        Product::incrementPositions($product->section_id);
 
         return redirect(route('products.index'));
     }
@@ -145,5 +139,21 @@ class ProductsController extends Controller
         return response()->json([
             'status' => $product->changeStatus()
         ]);
+    }
+
+    public function positionUp($position, $section)
+    {
+        if ((int)$position !== 1) {
+            Product::swapping($position, $section);
+        }
+        return redirect(route('products.index'));
+    }
+
+    public function positionDown($position, $section)
+    {
+        if ((int)$position !== Product::whereSection_id($section)->max('position')) {
+            Product::swapping($position + 1, $section);
+        }
+        return redirect(route('products.index'));
     }
 }

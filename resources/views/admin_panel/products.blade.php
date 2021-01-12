@@ -38,23 +38,24 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive text-center">
-                                <table id="example2" class="table table-bordered" style="width:100%">
-                                    <thead>
+                                <table class="table" style="width:100%">
+                                    <thead class="text-center">
                                     <tr class="table-active">
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Position</th>
                                         <th>Weight</th>
                                         <th>Price</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="text-center">
 
                                     @foreach($sections as $section)
                                         <tr class="table-primary">
-                                            <td colspan="6">{{ $section->name }}</td>
+                                            <td colspan="7">{{ $section->name }}</td>
                                             <td>
                                                 <a href="{{ route('products.create', ['section_id'=> $section->id]) }}"
                                                    class="btn btn-rounded btn-light">Add new product</a>
@@ -63,12 +64,29 @@
                                         </tr>
                                         @foreach($section->products as $key => $product)
                                             <tr>
-                                                <td>{{ ++$key }}</td>
+                                                <td>{{ $product->position }}</td>
                                                 <td>
                                                     <a href="{{ route('products.show', ['id' => $product->id]) }}">{{ $product->name }}</a>
                                                 </td>
                                                 <td class=" text-truncate col-1"
-                                                    style="max-width: 100px;">{{ $product->description }}</td>
+                                                    style="max-width: 100px;">{{ $product->description }}
+                                                </td>
+
+                                                {{--Ячейка отображения кнопок перемещения позиции---------------------}}
+                                                <td class="p-0">
+                                                    <div class="d-flex justify-content-center mt-0">
+                                                        <a href="{{ route('p_position_up',
+                                                                    ['position' => $product->position,
+                                                                    'section' => $product->section_id]) }}"
+                                                           class="f-icon"><i class="fas fa-arrow-up"></i></a>
+                                                        <a href="{{ route('p_position_down',
+                                                                    ['position' => $product->position,
+                                                                    'section' => $product->section_id]) }}"
+                                                           class="f-icon"><i class="fas fa-arrow-down"></i></a>
+                                                    </div>
+                                                </td>
+                                                {{--------------------------------------------------------------------}}
+
                                                 <td>{{ $product->weight }}</td>
                                                 <td>{{ $product->price }}</td>
                                                 <td>
@@ -107,11 +125,12 @@
 
 
                                     </tbody>
-                                    <tfoot>
+                                    <tfoot class="text-center">
                                     <tr class="table-active">
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Position</th>
                                         <th>Weight</th>
                                         <th>Price</th>
                                         <th>Status</th>
