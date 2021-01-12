@@ -14,23 +14,18 @@ class SectionsSeeder extends Seeder
     public function run()
     {
         $sections = [];
-        $sectionsName = [
-            'STARTERS',
-            'SEAFOOD',
-            'DESSERTS',
-            'MAIN DISHES'
-        ];
+        $menu = DatabaseSeeder::MENU;
 
-        for ($i = 0; $i < count($sectionsName); $i++) {
+        for ($i = 0; $i < count($menu); $i++) {
             $sections[] = [
-                'name' => $sectionsName[$i],
+                'name' => key($menu),
                 'position' => 1 + $i,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             ];
+            next($menu);
         }
 
         DB::table('sections')->insert($sections);
-
     }
 }

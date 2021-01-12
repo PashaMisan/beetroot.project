@@ -9,7 +9,8 @@ class MenuPageController extends Controller
     public function index()
     {
         $menu = Section::with(['products' => function ($query) {
-            $query->where('status', 1);
+            $query->where('status', 1)
+                ->orderBy('position');
         }])
             ->orderBy('position')
             ->get();
