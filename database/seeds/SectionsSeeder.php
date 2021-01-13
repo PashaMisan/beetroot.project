@@ -13,10 +13,9 @@ class SectionsSeeder extends Seeder
      */
     public function run()
     {
-        $sections = [];
         $menu = DatabaseSeeder::MENU;
 
-        for ($i = 0; $i < count($menu); $i++) {
+        for ($sections = [], $i = 0; $i < count($menu); $i++) {
             $sections[] = [
                 'name' => key($menu),
                 'position' => 1 + $i,

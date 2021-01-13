@@ -19,20 +19,21 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Admin panel rout groups
+
+//Dashboard
+//All registered users have this ability
+Route::get('admin-panel/', 'Admin_panel\MainPageController@index')->middleware('auth')->name('admin_panel_main');
+
+//Abilities that can only have an administrator
 Route::group([
-    'middleware' => 'auth',
+    'middleware' => ['auth', 'can:change_menu'],
     'prefix' => 'admin-panel'
 ], function () {
-    //Dashboard
-    Route::get('/', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
-
-
     //Sections
     Route::resource('sections', 'Admin_panel\SectionsController')->except(['create', 'show']);
     Route::get('sections/{position}/position_up', 'Admin_panel\SectionsController@positionUp')->name('position_up');
     Route::get('sections/{position}/position_down', 'Admin_panel\SectionsController@positionDown')
         ->name('position_down');
-
 
     //Products
     Route::resource('products', 'Admin_panel\ProductsController');
@@ -43,7 +44,5 @@ Route::group([
     Route::post('product/change-status', 'Admin_panel\ProductsController@changeStatusAjax')
         ->name('change_product_status_ajax');
 });
-
-
 
 

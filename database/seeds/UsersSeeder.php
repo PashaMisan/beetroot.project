@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -13,12 +14,35 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('admin'),
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+        $users = [];
+        foreach (DatabaseSeeder::USERS as $userName => $userData) {
+            $users[] = [
+                'name' => $userName,
+                'email' => $userData['email'],
+                'password' => bcrypt($userData['password']),
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+        }
+
+        DB::table('users')->insert($users);
+
+        $roleUser = [];
+        foreach (User::all() as $key => $user) {
+            $roleUser[] = [
+                'user_id' => $user->id,
+                'role_id' => ++$key,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+        }
+
+        DB::table('role_user')->insert($roleUser);
+
+        DB::table('ability_role')->insert([
+            'role_id' => 1,
+            'ability_id' => 1
         ]);
+
     }
 }
