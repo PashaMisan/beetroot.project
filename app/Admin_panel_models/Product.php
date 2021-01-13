@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'section_id', 'description', 'weight', 'price', 'status'];
+    protected $guarded = [];
 
     public function changeStatus()
     {
@@ -33,14 +33,34 @@ class Product extends Model
         return true;
     }
 
-    static function incrementPositions($section_id)
+    /**
+     * Deletes an object of this class and then increments the positions of the products.
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function deleteAndIncrement()
     {
-        Product::whereSection_id($section_id)
-            ->orderBy('position')->get()->each(function ($item, $key) {
-                $item->position = ++$key;
-                $item->save();
-            });
+        $this->delete();
+        $this->incrementRowBySection();
 
+        return true;
+    }
+
+    /**
+     * Increments product positions in each section.
+     *
+     * @return bool
+     */
+    public function incrementRowBySection()
+    {
+        foreach (Section::all() as $section) {
+            Product::whereSection_id($section->id)
+                ->orderBy('position')->get()->each(function ($item, $key) {
+                    $item->position = ++$key;
+                    $item->save();
+                });
+        }
         return true;
     }
 }

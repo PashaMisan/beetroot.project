@@ -28,16 +28,6 @@ class SectionsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -45,23 +35,11 @@ class SectionsController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO Добавить валидацию реквеста
-        $section = new Section();
-        $section->name = $request->section_name;
-        $section->position = Section::max('position') + 1;
-        $section->save();
-        return redirect(route('sections.index'));
-    }
+        Section::create($request->merge([
+            'position' => Section::max('position') + 1
+        ])->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Section $section
-     * @return void
-     */
-    public function show(Section $section)
-    {
-        //
+        return redirect(route('sections.index'));
     }
 
     /**
@@ -87,9 +65,8 @@ class SectionsController extends Controller
      */
     public function update(Request $request, Section $section)
     {
-        //TODO Добавить валидацию реквеста
-        $section->name = $request->edit_section_name;
-        $section->save();
+        $section->update($request->all('name'));
+
         return redirect(route('sections.index'));
     }
 

@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->integer('weight');
             $table->integer('price');
-            $table->boolean('status');
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
 

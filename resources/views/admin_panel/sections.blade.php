@@ -87,7 +87,7 @@
                                             <div class="form-group">
                                                 <label for="section_name" class="col-form-label"></label>
                                                 <input id="section_name" type="text" class="form-control"
-                                                       name="section_name">
+                                                       name="name">
                                             </div>
                                         </td>
                                         <td>

@@ -39,7 +39,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="product_name" class="col-form-label">Name</label>
-                                    <input id="product_name" type="text" class="form-control" name="product_name">
+                                    <input id="product_name" type="text" class="form-control" name="name">
                                 </div>
 
                                 <div class="form-group " style="display: none;">
@@ -50,27 +50,27 @@
 
                                 <div class="form-group">
                                     <label for="product_description">Description</label>
-                                    <textarea class="form-control" id="product_description" rows="5"
-                                              name="product_description"></textarea>
+                                    <textarea class="form-control" id="description" rows="5"
+                                              name="description"></textarea>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Weight</label>
                                     <div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
                                         <input id="product_weight" type="text" class="form-control"
-                                               name="product_weight">
+                                               name="weight">
                                     </div>
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Price</label>
                                     <div class="col-sm-4 col-lg-3">
-                                        <input id="product_price" type="text" class="form-control" name="product_price">
+                                        <input id="product_price" type="text" class="form-control" name="price">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
                                         <label class="be-checkbox custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="status"><span
-                                                class="custom-control-label">
+                                            <input type="checkbox" class="custom-control-input" name="status" value="1">
+                                            <span class="custom-control-label">
                                                 Add to menu immediately
                                             </span>
                                         </label>

@@ -60,14 +60,15 @@
                                                     <div class="form-group">
                                                         <label for="edit_section_name" class="col-form-label"></label>
                                                         <input id="edit_section_name" type="text" class="form-control"
-                                                               name="edit_section_name"
+                                                               name="name"
                                                                value="{{ $uniqSection->name }}">
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('sections.index') }}" class="badge badge-danger">Cancel</a>
+                                                    <a href="{{ route('sections.index') }}" class="badge badge-danger">
+                                                        Cancel
+                                                    </a>
                                                     <button class="badge badge-success">Save</button>
-
                                         </form>
 
                                     @else

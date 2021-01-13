@@ -54,22 +54,11 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+        //TODO Сделать валидацию (поля weight и price должны быть integer)
 
-        //TODO Добавить валидацию Request
-//        $product = new Product([
-//            'name' => $request->product_name
-//        ]);
-        $product = new Product();
-        $product->name = $request->product_name;
-        $product->section_id = $request->section_id;
-        $product->description = $request->product_description;
-        $product->weight = $request->product_weight;
-        $product->price = $request->product_price;
-        $product->status = ((isset($request->status)) ? 1 : 0);
-        $product->save();
+        Product::create($this->setpositionToRequest($request));
 
         return redirect(route('products.index'));
-
     }
 
     /**
@@ -110,10 +99,15 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //TODO Добавить валидацию Request;
-        $data = $request->all();
-        $data['status'] = isset($data['status']) ? 1 : 0;
-        $product->update($data);
+        //TODO Сделать валидацию (поля weight и price должны быть integer)
+        ($request->status) ?? $request->merge(['status' => 0]);
+
+        if($request->section_id == $product->section_id) {
+            $product->update($request->all());
+        } else {
+            $product->update($this->setpositionToRequest($request));
+            $product->incrementRowBySection();
+        }
 
         return redirect(route('products.index'));
     }
@@ -123,12 +117,11 @@ class ProductsController extends Controller
      *
      * @param Product $product
      * @return Application|RedirectResponse|Redirector
+     * @throws \Exception
      */
     public function destroy(Product $product)
     {
-        $product->delete();
-        Product::incrementPositions($product->section_id);
-
+        $product->deleteAndIncrement();
         return redirect(route('products.index'));
     }
 
@@ -155,5 +148,17 @@ class ProductsController extends Controller
             Product::swapping($position + 1, $section);
         }
         return redirect(route('products.index'));
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function setPositionToRequest(Request $request): array
+    {
+        return $request->merge([
+            'position' => Product::whereSection_id($request->section_id)
+                    ->max('position') + 1
+        ])->all();
     }
 }
