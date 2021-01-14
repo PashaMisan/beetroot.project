@@ -220,12 +220,12 @@
                             </div>--}}
                         </li>
 
-                        @can('change_menu')
+                        @adminAccess
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                               data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>Menu
+                               data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-puzzle-piece"></i>Menu
                                 creator</a>
-                            <div id="submenu-2" class="collapse submenu" style="">
+                            <div id="submenu-1" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('sections.index') }}">
@@ -240,7 +240,22 @@
                                 </ul>
                             </div>
                         </li>
-                        @endcan
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-2" aria-controls="submenu-2">
+                                <i class="fas fa-users"></i>Staff</a>
+                            <div id="submenu-2" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('sections.index') }}">
+                                            Sections
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        @endadminAccess
 
                         {{--                        <li class="nav-item">
                                                     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>UI Elements</a>

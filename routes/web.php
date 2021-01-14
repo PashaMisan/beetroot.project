@@ -21,12 +21,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Admin panel rout groups
 
 //Dashboard
+
 //All registered users have this ability
 Route::get('admin-panel/', 'Admin_panel\MainPageController@index')->middleware('auth')->name('admin_panel_main');
 
 //Abilities that can only have an administrator
 Route::group([
-    'middleware' => ['auth', 'can:change_menu'],
+    'middleware' => ['auth', 'admin'],
     'prefix' => 'admin-panel'
 ], function () {
     //Sections

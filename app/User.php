@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -53,5 +52,10 @@ class User extends Authenticatable
     public function abilities()
     {
         return $this->roles->map->abilities->flatten()->pluck('name')->unique();
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles->contains('name', 'administrator');
     }
 }
