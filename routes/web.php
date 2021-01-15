@@ -47,6 +47,9 @@ Route::group([
 
     //Staff->Manage
     Route::resource('users', 'Admin_panel\StaffController')->only(['index', 'store', 'destroy']);
+
+    //Tables->Manage
+    Route::resource('tables', 'Admin_panel\TablesController');
 });
 
 

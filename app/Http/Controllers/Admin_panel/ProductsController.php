@@ -24,7 +24,6 @@ class ProductsController extends Controller
     public function index()
     {
         return view('admin_panel.products', [
-            'user' => Auth::user(),
             'sections' => Section::with(array('products' => function ($products) {
                 $products->orderBy('position');
             }))
@@ -41,7 +40,6 @@ class ProductsController extends Controller
     public function create(Request $request)
     {
         return view('admin_panel.products_new', [
-            'user' => Auth::user(),
             'section_id' => $request->section_id,
         ]);
     }
@@ -70,7 +68,6 @@ class ProductsController extends Controller
     public function show(Product $product)
     {
         return view('admin_panel.products_show', [
-            'user' => Auth::user(),
             'product' => $product
         ]);
     }
@@ -84,7 +81,6 @@ class ProductsController extends Controller
     public function edit(Product $product)
     {
         return view('admin_panel.products_edit', [
-            'user' => Auth::user(),
             'product' => $product,
             'sections' => Section::all(),
         ]);

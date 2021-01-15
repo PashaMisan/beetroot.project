@@ -23,7 +23,6 @@ class SectionsController extends Controller
     public function index()
     {
         return view('admin_panel.sections', [
-            'user' => Auth::user(),
             'sections' => Section::orderBy('position')->get()]);
     }
 
@@ -51,7 +50,6 @@ class SectionsController extends Controller
     public function edit(Section $section)
     {
         return view('admin_panel.section_edit', [
-            'user' => Auth::user(),
             'sections' => Section::all()->sortBy('position'),
             'section' => $section]);
     }

@@ -128,7 +128,7 @@
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown"
                              aria-labelledby="navbarDropdownMenuLink2">
                             <div class="nav-user-info">
-                                <h5 class="mb-0 text-white nav-user-name">{{ $user->name }}</h5>
+                                <h5 class="mb-0 text-white nav-user-name">{{ Auth::user()->name }}</h5>
                                 {{--<span class="status"></span><span class="ml-2">Available</span>--}}
                             </div>
                             {{--<a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
@@ -249,6 +249,21 @@
                                 <ul class="nav flex-column">
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('users.index') }}">
+                                            Manage
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-3" aria-controls="submenu-3">
+                                <i class="fas fa-th"></i>Tables</a>
+                            <div id="submenu-3" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('tables.index') }}">
                                             Manage
                                         </a>
                                     </li>

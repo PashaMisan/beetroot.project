@@ -9,6 +9,6 @@ class MainPageController extends Controller
 {
     public function index()
     {
-        return view('admin_panel.main_page', ['user'=> Auth::user()]);
+        return view('admin_panel.main_page');
     }
 }

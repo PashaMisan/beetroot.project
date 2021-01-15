@@ -25,8 +25,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        return view('admin_panel.manage', [
-            'user' => Auth::user(),
+        return view('admin_panel.staff', [
             'users' => User::with('roles')->get(),
             'roles' => Role::all()
         ]);
