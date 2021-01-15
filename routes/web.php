@@ -30,13 +30,13 @@ Route::group([
     'middleware' => ['auth', 'admin'],
     'prefix' => 'admin-panel'
 ], function () {
-    //Sections
+    //MenuCreator->Sections
     Route::resource('sections', 'Admin_panel\SectionsController')->except(['create', 'show']);
     Route::get('sections/{position}/position_up', 'Admin_panel\SectionsController@positionUp')->name('position_up');
     Route::get('sections/{position}/position_down', 'Admin_panel\SectionsController@positionDown')
         ->name('position_down');
 
-    //Products
+    //MenuCreator->Products
     Route::resource('products', 'Admin_panel\ProductsController');
     Route::get('product/{position}/position_up/{section}', 'Admin_panel\ProductsController@positionUp')
         ->name('p_position_up');
@@ -44,6 +44,9 @@ Route::group([
         ->name('p_position_down');
     Route::post('product/change-status', 'Admin_panel\ProductsController@changeStatusAjax')
         ->name('change_product_status_ajax');
+
+    //Staff->Manage
+    Route::resource('users', 'Admin_panel\StaffController')->only(['index', 'store', 'destroy']);
 });
 
 
