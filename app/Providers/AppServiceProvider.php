@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::if('AdminAccess', function () {
+            return Auth::user()->isAdmin();
+        });
+
+        Blade::if('ForWaiter', function () {
+            return Auth::user()->isWaiter();
+        });
+
+
     }
 }

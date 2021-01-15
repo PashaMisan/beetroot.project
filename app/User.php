@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Admin_panel_models\Order;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -36,9 +38,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Check is user online.
+     * @return bool
+     */
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-' . $this->id);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
     public function setPasswordAttribute($value){
@@ -61,5 +77,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->roles->contains('name', 'administrator');
+    }
+
+    public function isWaiter()
+    {
+        return $this->roles->contains('name', 'waiter');
     }
 }

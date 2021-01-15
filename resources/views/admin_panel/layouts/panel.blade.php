@@ -120,6 +120,40 @@
                              </li>
                          </ul>
                      </li>--}}
+
+                    <li class="nav-item dropdown connection">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                        <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+                            <li class="connection-list">
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="assets/images/github.png" alt="" > <span>Github</span></a>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="assets/images/dribbble.png" alt="" > <span>Dribbble</span></a>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="assets/images/dropbox.png" alt="" > <span>Dropbox</span></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="assets/images/bitbucket.png" alt=""> <span>Bitbucket</span></a>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="assets/images/mail_chimp.png" alt="" ><span>Mail chimp</span></a>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                        <a href="#" class="connection-item"><img src="assets/images/slack.png" alt="" > <span>Slack</span></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="conntection-footer"><a href="#">More</a></div>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item dropdown nav-user">
                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false"><img
@@ -220,7 +254,7 @@
                             </div>--}}
                         </li>
 
-                        @adminAccess
+                        @AdminAccess
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                                data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-puzzle-piece"></i>Menu
@@ -270,7 +304,7 @@
                                 </ul>
                             </div>
                         </li>
-                        @endadminAccess
+                        @endAdminAccess
 
                         {{--                        <li class="nav-item">
                                                     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-rocket"></i>UI Elements</a>

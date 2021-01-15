@@ -25,9 +25,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Blade::if('adminAccess', function () {
-            return Auth::user()->isAdmin();
-        });
     }
 }
