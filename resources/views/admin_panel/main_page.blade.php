@@ -29,13 +29,18 @@
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
+
+                @ForWaiter
+                @include('admin_panel.includes.waiter_sidebar')
+                @endForWaiter
+
                 <div class="row">
                     <!-- ============================================================== -->
                     <!-- recent orders  -->
                     <!-- ============================================================== -->
                     <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">Table status</h5>
+                            <h5 class="card-header">Tables status</h5>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
                                     <table class="table text-center">
@@ -88,7 +93,7 @@
                         <!-- top perfomimg  -->
                         <!-- ============================================================== -->
                         <div class="card">
-                            <h5 class="card-header text-center">Waiters</h5>
+                            <h5 class="card-header text-center">Waiters status</h5>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
                                     <table class="table no-wrap p-table text-center">

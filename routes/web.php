@@ -23,7 +23,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Dashboard
 
 //All registered users have this ability
-Route::get('admin-panel/', 'Admin_panel\MainPageController@index')->middleware('auth')->name('admin_panel_main');
+Route::group([
+    'middleware' => ['auth'],
+    'prefix' => 'admin-panel'
+], function () {
+    Route::get('', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
+    Route::post('openTable', 'Admin_panel\WaiterDashboardController@openTable')->name('open_table');
+    Route::get('{id}/closeTable', 'Admin_panel\WaiterDashboardController@closeTable')->name('close_table');
+});
 
 //Abilities that can only have an administrator
 Route::group([

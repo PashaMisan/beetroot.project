@@ -11,11 +11,10 @@ class MainPageController extends Controller
 {
     public function index()
     {
-        return view('admin_panel.main_page', [
-            'tables' => Table::with('order')->get(),
-            'waiters' => User::whereHas('roles', function ($role) {
-                return $role->whereName('waiter');
-            })->get()
-        ]);
+        return view('admin_panel.main_page', array_merge(
+            GeneralDashboardController::generalDashboard(),
+            (Auth::user()->isWaiter()) ? WaiterDashboardController::waiterDashboard() : []
+            ));
     }
+
 }

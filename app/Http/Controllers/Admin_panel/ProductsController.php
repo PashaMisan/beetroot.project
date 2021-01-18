@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin_panel;
 
 use App\Admin_panel_models\Product;
 use App\Admin_panel_models\Section;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -11,7 +12,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ProductsController extends Controller
@@ -26,8 +26,7 @@ class ProductsController extends Controller
         return view('admin_panel.products', [
             'sections' => Section::with(array('products' => function ($products) {
                 $products->orderBy('position');
-            }))
-                ->orderBy('position')
+            }))->orderBy('position')
                 ->get()
         ]);
     }
@@ -35,6 +34,7 @@ class ProductsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Application|Factory|Response|View
      */
     public function create(Request $request)
@@ -113,7 +113,7 @@ class ProductsController extends Controller
      *
      * @param Product $product
      * @return Application|RedirectResponse|Redirector
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Product $product)
     {
