@@ -31,7 +31,6 @@
                 <!-- ============================================================== -->
 
 
-
                 @ForWaiter
                 <!-- ============================================================== -->
                 <!-- Waiter dashboard  -->
@@ -53,7 +52,6 @@
                 <!-- ============================================================== -->
                 <!-- End general dashboard  -->
                 <!-- ============================================================== -->
-
             </div>
         </div>
     </div>
@@ -61,6 +59,12 @@
 
 @section('JavaScripts')
     <script>
+        //Скрипт собирает все элементы с классом call и делает их мигающими красным цветом
+        setInterval(() =>
+            document.querySelectorAll(".call").forEach(element => element.classList.toggle("bg-danger")
+            ), 700)
+
+        //Необходимые переменные для Ajax запроса
         let csrf = '{{ csrf_token() }}';
         let dataTime = {!! $last_change_of_orders !!};
         let route = '{{ route('main_page_ajax') }}';

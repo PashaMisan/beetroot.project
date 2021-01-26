@@ -1,3 +1,5 @@
+/*После полной загрузки страницы, с интервалом указанным в функции отправляется Ajax запрос.
+* В зависимости от данных которые пришли, обновляются данные на главной страницы админ-панелию. */
 document.addEventListener('DOMContentLoaded', function() {
     setInterval(() => getFetchPromise(csrf, route, dataTime)
         .then((data) => {
@@ -16,3 +18,5 @@ document.addEventListener('DOMContentLoaded', function() {
             //console.log(data)
         }), 2000);
 }, false);
+
+

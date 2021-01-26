@@ -2,17 +2,17 @@
 
     @switch($table->getStatus())
         @case('Call')
-        <tr class="bg-danger">
+        <tr class="bg-danger call">
             <td>{{ ++$key }}</td>
             <td>{{ $table->number  }}</td>
             <td>
-                                <span class="mr-2"><span class="badge-dot badge-success">
+                <span class="mr-2"><span class="badge-dot badge-primary">
                                     </span>{{ $table->getStatus() }}</span>
             </td>
             <td>{{ $table->getWaiterName()}}</td>
             <td>{{ $table->order->created_at }}</td>
             <td>
-                <a href="#"
+                <a href="{{ route('accept_table', ['id' => $table->id]) }}"
                    class="btn btn-light">Accept</a>
             </td>
         </tr>
