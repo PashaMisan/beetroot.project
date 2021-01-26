@@ -17,7 +17,10 @@ Route::get('/menu', 'MenuPageController@index')->name('menu');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/setKey', 'Admin_panel\TableKeyController@setKey')->name('set_key');
 
+//TODO добавить проверку на наличие ключа заказа в куках пользователя
+Route::get('/call_waiter', 'ActionsFromMenuController@callWaiter')->name('waiter_call');
 //Admin panel rout groups
 
 //Dashboard
@@ -30,6 +33,10 @@ Route::group([
     Route::get('', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
     Route::post('openTable', 'Admin_panel\WaiterDashboardController@openTable')->name('open_table');
     Route::get('{id}/closeTable', 'Admin_panel\WaiterDashboardController@closeTable')->name('close_table');
+
+    //Обрабатывает Ajax запрос с главной странички админ панели
+    Route::post('/mainPageAjax', 'Admin_panel\MainPageController@answerAjax')
+        ->name('main_page_ajax');
 });
 
 //Abilities that can only have an administrator

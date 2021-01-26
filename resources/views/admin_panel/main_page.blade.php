@@ -30,112 +30,43 @@
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
 
+
+
                 @ForWaiter
-                @include('admin_panel.includes.waiter_sidebar')
+                <!-- ============================================================== -->
+                <!-- Waiter dashboard  -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    @include('admin_panel.dashboards.waiter')
+                </div>
+                <!-- ============================================================== -->
+                <!-- End waiter dashboard  -->
+                <!-- ============================================================== -->
                 @endForWaiter
 
+                <!-- ============================================================== -->
+                <!-- General dashboard  -->
+                <!-- ============================================================== -->
                 <div class="row">
-                    <!-- ============================================================== -->
-                    <!-- recent orders  -->
-                    <!-- ============================================================== -->
-                    <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <h5 class="card-header">Tables status</h5>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table text-center">
-                                        <thead class="bg-light">
-                                        <tr class="border-0">
-                                            <th class="border-0">#</th>
-                                            <th class="border-0">Table number</th>
-                                            <th class="border-0">Status</th>
-                                            <th class="border-0">Waiter</th>
-                                            <th class="border-0">Open time</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        @foreach($tables as $key => $table)
-                                            <tr>
-                                                <td>{{ ++$key }}</td>
-                                                <td>{{ $table->number  }}</td>
-
-                                                @if($table->order)
-                                                    <td>
-                                                    <span class="mr-2">
-                                                        <span class="badge-dot badge-success"></span>
-                                                        Active
-                                                    </span></td>
-                                                    <td>{{ $table->getWaiterName()}}</td>
-                                                    <td>{{ $table->order->created_at }}</td>
-                                                @else
-                                                    <td>
-                                                    <span class="mr-2">
-                                                        <span class="badge-dot badge-info"></span>
-                                                        Free
-                                                    </span></td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- end recent orders  -->
-                    <div class="col-xl-3 col-lg-12 col-md-6 col-sm-12 col-12">
-                        <!-- ============================================================== -->
-                        <!-- top perfomimg  -->
-                        <!-- ============================================================== -->
-                        <div class="card">
-                            <h5 class="card-header text-center">Waiters status</h5>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table no-wrap p-table text-center">
-                                        <thead class="bg-light">
-                                        <tr class="border-0">
-                                            <th class="border-0">Name</th>
-                                            <th class="border-0">Status</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        @foreach($waiters as $waiter)
-                                            <tr>
-                                                <td>{{ $waiter->name }}</td>
-                                                <td>
-                                                    @if($waiter->isOnline())
-                                                        <span class="mr-2">
-                                                        <span class="badge-dot badge-success">
-                                                        </span>Online</span>
-                                                    @else
-                                                        <span class="mr-2">
-                                                            <span class="badge-dot badge-danger"></span>Offline</span>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ============================================================== -->
-                        <!-- end top perfomimg  -->
-                        <!-- ============================================================== -->
-                    </div>
+                    @include('admin_panel.dashboards.general')
                 </div>
+                <!-- ============================================================== -->
+                <!-- End general dashboard  -->
+                <!-- ============================================================== -->
+
             </div>
         </div>
     </div>
-
 @endsection
 
+@section('JavaScripts')
+    <script>
+        let csrf = '{{ csrf_token() }}';
+        let dataTime = {!! $last_change_of_orders !!};
+        let route = '{{ route('main_page_ajax') }}';
+    </script>
+    <script src="{{ asset('js/helpers/fetch.js') }}"></script>
+    <script src="{{ asset('admin_panel/main_page/main_page.js') }}"></script>
+@endsection
 
 

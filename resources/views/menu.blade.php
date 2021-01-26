@@ -21,6 +21,7 @@
         </div>
     </section>
 
+    @HasNotKey
     <section class="ftco-intro">
         <div class="container-wrap">
             <div class="wrap d-md-flex align-items-xl-end">
@@ -101,6 +102,26 @@
             </div>
         </div>
     </section>
+    @endHasNotKey
+
+    @HasKey
+    <section class="mt-2">
+
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+                <div class="col-md-8 col-sm-12 text-center ftco-animate">
+                    <p>
+                        <a href="{{ route('waiter_call', ['key' => 12345]) }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Call waiter</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+    @endHasKey
 
     <section class="ftco-section">
         <div class="container">
@@ -174,7 +195,6 @@
 
 
                 </div>
-
 
             </div>
         </div>

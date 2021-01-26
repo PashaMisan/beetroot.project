@@ -152,9 +152,9 @@
     <!-- wrapper  -->
     <!-- ============================================================== -->
 
-    @yield('content')
+@yield('content')
 
-    <!-- ============================================================== -->
+<!-- ============================================================== -->
     <!-- end wrapper  -->
     <!-- ============================================================== -->
 </div>
@@ -162,6 +162,7 @@
 <!-- end main wrapper  -->
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
+@yield('JavaScripts')
 <!-- jquery 3.3.1 -->
 <script src="{{ asset('admin_panel/assets/vendor/jquery/jquery-3.3.1.min.js') }}"></script>
 <!-- bootstap bundle js -->
@@ -182,6 +183,7 @@
 <script src="{{ asset('admin_panel/assets/vendor/charts/c3charts/d3-5.4.0.min.js') }}"></script>
 <script src="{{ asset('admin_panel/assets/vendor/charts/c3charts/C3chartjs.js') }}"></script>
 <script src="{{ asset('admin_panel/assets/libs/js/dashboard-ecommerce.js') }}"></script>
+
 </body>
 
 </html>

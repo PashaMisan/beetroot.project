@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Admin_panel_models\Order;
+use App\Admin_panel_models\Table;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -33,6 +38,13 @@ class AppServiceProvider extends ServiceProvider
             return Auth::user()->isWaiter();
         });
 
+        Blade::if('HasKey', function () {
+            return Order::hasKey();
+        });
+
+        Blade::if('HasNotKey', function () {
+            return !Order::hasKey();
+        });
 
     }
 }

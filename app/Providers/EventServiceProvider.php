@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Admin_panel_models\Order;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +32,14 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        //Событие срабатывает только при вытягивании обьекта из БД, к примеру при использовании метода first();
+        //https://github.com/laravel/framework/issues/2536
+        Event::listen([
+            'eloquent.deleted: App\Admin_panel_models\Order',
+            'eloquent.saved: App\Admin_panel_models\Order'
+            ],
+            function () {
+                Cache::forever('last_change_of_orders', Carbon::now()->toDateTimeString());
+            });
     }
 }

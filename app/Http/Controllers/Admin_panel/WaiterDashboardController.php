@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin_panel;
 use App\Admin_panel_models\Order;
 use App\Admin_panel_models\Table;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Throwable;
 
 class WaiterDashboardController extends Controller
 {
@@ -21,12 +24,20 @@ class WaiterDashboardController extends Controller
         ];
     }
 
+    static function myTablesRender()
+    {
+        return view('admin_panel.dashboards.ajax.waiterMyTables')
+            ->with(self::waiterDashboard())->render();
+    }
+
     public function openTable(Request $request)
     {
+        $key = Str::random(5);
+
         Order::create($request->merge([
             'user_id' => Auth::id(),
-            'key' => 'test',
-            'qr' => 'test'
+            'status_id' => 1,
+            'key' => $key,
         ])->all());
 
         return redirect(route('admin_panel_main'));
@@ -34,7 +45,9 @@ class WaiterDashboardController extends Controller
 
     public function closeTable($id)
     {
-        Order::whereTable_id($id)->delete();
+        //Чтобы сработал  Event::listen в EventServiceProvider нужно вызывать метод first()
+        Order::whereTable_id($id)->first()->delete();
+
         return redirect(route('admin_panel_main'));
     }
 }
