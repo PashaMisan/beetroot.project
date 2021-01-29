@@ -21,6 +21,7 @@ Route::get('/setKey', 'Admin_panel\TableKeyController@setKey')->name('set_key');
 
 //TODO добавить проверку на наличие ключа заказа в куках пользователя
 Route::get('/call_waiter', 'ActionsFromMenuController@callWaiter')->name('waiter_call');
+Route::get('/productSingle/{product}', 'ProductSingleController@index')->name('product_single');
 //Admin panel rout groups
 
 //Dashboard
