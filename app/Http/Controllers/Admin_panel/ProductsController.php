@@ -7,12 +7,14 @@ use App\Admin_panel_models\Section;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
+use Throwable;
 
 class ProductsController extends Controller
 {
@@ -23,12 +25,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('admin_panel.products', [
-            'sections' => Section::with(array('products' => function ($products) {
-                $products->orderBy('position');
-            }))->orderBy('position')
-                ->get()
-        ]);
+        return view('admin_panel.products', $this->getSectionsArr());
     }
 
     /**
@@ -98,7 +95,7 @@ class ProductsController extends Controller
         //TODO Сделать валидацию (поля weight и price должны быть integer)
         ($request->status) ?? $request->merge(['status' => 0]);
 
-        if($request->section_id == $product->section_id) {
+        if ($request->section_id == $product->section_id) {
             $product->update($request->all());
         } else {
             $product->update($this->setpositionToRequest($request));
@@ -130,20 +127,33 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function positionUp($position, $section)
+    /**
+     * Метод принимает Post запрос с данными о текщей позиции продукта, секции, и значением шага.
+     *
+     * Значение шага имеет логический тип данных:
+     * true - продукт необходимо переместить на шаг выше;
+     * false - продукт необходимо переместить на шаг ниже.
+     * Помимо проверки на значение шага, выполняется проверка на его кройность. Последний продукт невозможно перенести
+     * еще ниже, а самый первый продукт - выше.
+     *
+     * Метод возвращает json в котором содержится обновленный html таблицы продуктов.
+     *
+     * @return JsonResponse
+     * @throws Throwable
+     */
+    public function changePosition()
     {
-        if ((int)$position !== 1) {
-            Product::swapping($position, $section);
-        }
-        return redirect(route('products.index'));
-    }
+        list($position, $section, $move) = request('value');
 
-    public function positionDown($position, $section)
-    {
-        if ((int)$position !== Product::whereSection_id($section)->max('position')) {
+        if ($move && (int)$position !== 1) {
+            Product::swapping($position, $section);
+        } elseif (!$move && (int)$position !== Product::whereSection_id($section)->max('position')) {
             Product::swapping($position + 1, $section);
         }
-        return redirect(route('products.index'));
+
+        return response()->json([
+            'html' => view('admin_panel.ajax.productTable', $this->getSectionsArr())->render()
+        ]);
     }
 
     /**
@@ -157,4 +167,22 @@ class ProductsController extends Controller
                     ->max('position') + 1
         ])->all();
     }
+
+    /**
+     * Возвращает массив в котором по ключу 'sections' содержится коллекция секций отсортированных по позиции вместе с
+     * продуктами.
+     *
+     * @return array
+     */
+    private function getSectionsArr(): array
+    {
+        return [
+            'sections' => Section::with(array('products' => function ($products) {
+                $products->orderBy('position');
+            }))->orderBy('position')
+                ->get()
+        ];
+    }
+
+
 }

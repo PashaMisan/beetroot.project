@@ -57,10 +57,7 @@ Route::group([
 
     //MenuCreator->Products
     Route::resource('products', 'Admin_panel\ProductsController');
-    Route::get('product/{position}/position_up/{section}', 'Admin_panel\ProductsController@positionUp')
-        ->name('p_position_up');
-    Route::get('products/{position}/position_down/{section}', 'Admin_panel\ProductsController@positionDown')
-        ->name('p_position_down');
+    Route::post('product/changePosition', 'Admin_panel\ProductsController@changePosition')->name('p_position_change');
     Route::post('product/change-status', 'Admin_panel\ProductsController@changeStatusAjax')
         ->name('change_product_status_ajax');
 

@@ -1,8 +1,6 @@
-<script src="{{ asset('admin_panel/product/product.js') }}"></script>
 @extends('admin_panel.layouts.panel')
 
 @section('content')
-
     <div class="dashboard-wrapper">
         <div class="container-fluid  dashboard-content">
             <!-- ============================================================== -->
@@ -51,78 +49,10 @@
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody class="text-center">
+                                    <tbody class="text-center" id="products-table">
 
-                                    @foreach($sections as $section)
-                                        <tr class="table-primary">
-                                            <td colspan="7">{{ $section->name }}</td>
-                                            <td>
-                                                <a href="{{ route('products.create', ['section_id'=> $section->id]) }}"
-                                                   class="btn btn-rounded btn-light">Add new product</a>
-                                            </td>
-
-                                        </tr>
-                                        @foreach($section->products as $key => $product)
-                                            <tr>
-                                                <td>{{ $product->position }}</td>
-                                                <td>
-                                                    <a href="{{ route('products.show', ['id' => $product->id]) }}">{{ $product->name }}</a>
-                                                </td>
-                                                <td class=" text-truncate col-1"
-                                                    style="max-width: 100px;">{{ $product->description }}
-                                                </td>
-
-                                                {{--Ячейка отображения кнопок перемещения позиции---------------------}}
-                                                <td class="p-0">
-                                                    <div class="d-flex justify-content-center mt-0">
-                                                        <a href="{{ route('p_position_up',
-                                                                    ['position' => $product->position,
-                                                                    'section' => $product->section_id]) }}"
-                                                           class="f-icon"><i class="fas fa-arrow-up"></i></a>
-                                                        <a href="{{ route('p_position_down',
-                                                                    ['position' => $product->position,
-                                                                    'section' => $product->section_id]) }}"
-                                                           class="f-icon"><i class="fas fa-arrow-down"></i></a>
-                                                    </div>
-                                                </td>
-                                                {{--------------------------------------------------------------------}}
-
-                                                <td>{{ $product->weight }}</td>
-                                                <td>{{ $product->price }}</td>
-                                                <td>
-
-                                                    @if($product->status === 1)
-                                                        <a href="javascript:void(0)" class="text-success"
-                                                           id="product{{$product->id}}"
-                                                           onclick="changeStatus({{$product->id}})">
-                                                            On
-                                                        </a>
-                                                    @else
-                                                        <a href="javascript:void(0)" class="text-danger"
-                                                           id="product{{$product->id}}"
-                                                           onclick="changeStatus({{$product->id}})">
-                                                            Off
-                                                        </a>
-                                                    @endif
-
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('products.edit', ['id' => $product->id]) }}"
-                                                       class="badge badge-primary">Edit</a>
-
-                                                    <form
-                                                        action="{{ route('products.destroy', ['id' => $product->id]) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="badge badge-danger">Delete</button>
-                                                    </form>
-
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endforeach
-
+                                    {{-- Inside of the product table --}}
+                                    @include('admin_panel.ajax.productTable')
 
                                     </tbody>
                                     <tfoot class="text-center">
@@ -154,4 +84,11 @@
 <script>
     var change_product_status_ajax = '{{ route('change_product_status_ajax')}}';
     var csrf = '{{ csrf_token() }}';
+    var change_position_route = '{{ route('p_position_change') }}';
 </script>
+
+@section('JavaScripts')
+    <script src="{{ asset('admin_panel/product/product.js') }}"></script>
+    <script src="{{ asset('js/helpers/fetch.js') }}"></script>
+    <script src="{{ asset('admin_panel/product/changePosition.js') }}"></script>
+@endsection
