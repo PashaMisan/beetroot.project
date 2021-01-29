@@ -32,7 +32,11 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">{{ $product->name }}</h3>
-                    <p class="card-text">{{ $product->description }}</p>
+                    <div class="card-text">
+                        Description: <p>{{ $product->description }}</p>
+                        Body: <p>{!! $product->text !!}</p>
+                    </div>
+
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Weight: {{ $product->weight }} gm.</li>

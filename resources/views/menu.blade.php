@@ -128,7 +128,6 @@
 
             <div class="row">
 
-
                 <div class="col-md-6">
 
                     @foreach($menu as $key => $section)
@@ -142,7 +141,9 @@
                                              style="background-image: url({{ asset('images/dish-1.jpg') }});"></div>
                                         <div class="desc pl-3">
                                             <div class="d-flex text align-items-center">
-                                                <h3><span>{{ $product->name }}</span></h3>
+                                                <h3>
+                                                    <a href="{{ route('product_single', ['id' => $product->id]) }}"><span>{{ $product->name }}</span></a>
+                                                </h3>
                                                 <span class="price">₴{{ $product->price }}</span>
                                             </div>
                                             <div class="d-block">
@@ -175,7 +176,9 @@
                                              style="background-image: url({{ asset('images/dish-1.jpg') }});"></div>
                                         <div class="desc pl-3">
                                             <div class="d-flex text align-items-center">
-                                                <h3><span>{{ $product->name }}</span></h3>
+                                                <h3>
+                                                    <a href="{{ route('product_single', ['id' => $product->id]) }}"><span>{{ $product->name }}</span></a>
+                                                </h3>
                                                 <span class="price">₴{{ $product->price }}</span>
                                             </div>
                                             <div class="d-block">
@@ -249,12 +252,15 @@
                                             @foreach($section->products as $product)
                                                 <div class="col-md-4 text-center">
                                                     <div class="menu-wrap">
-                                                        <a href="#" class="menu-img img mb-4"
+                                                        <a href="{{ route('product_single', ['id' => $product->id]) }}"
+                                                           class="menu-img img mb-4"
                                                            style="background-image: url({{ asset('images/dish-1.jpg') }});">
                                                             <span style="color: rgba(255,255,255,0)">Some hidden text for normal displaying of cards
                                                                 Some hidden text for normal displaying of cards</span></a>
                                                         <div class="text">
-                                                            <h3><a href="#">{{ $product->name }}</a></h3>
+                                                            <h3>
+                                                                <a href="{{ route('product_single', ['id' => $product->id]) }}">{{ $product->name }}</a>
+                                                            </h3>
                                                             <div>{{ $product->description }}
                                                             </div>
                                                             <p class="price"><span>₴{{ $product->price }}</span></p>

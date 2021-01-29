@@ -27,6 +27,7 @@ class ProductsSeeder extends Seeder
                     'section_id' => $section_id,
                     'position' => $key + 1,
                     'description' => 'A small river named Duden flows by their place and supplies',
+                    'text' => file_get_contents('https://loripsum.net/api/1/medium/plaintext'),
                     'weight' => rand(100, 400),
                     'price' => rand(40, 400),
                     'status' => rand(0, 1),

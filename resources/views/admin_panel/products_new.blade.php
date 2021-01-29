@@ -50,8 +50,14 @@
 
                                 <div class="form-group">
                                     <label for="product_description">Description</label>
-                                    <textarea class="form-control" id="description" rows="5"
+                                    <textarea class="form-control" id="description" rows="3"
                                               name="description"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="product_description">Text</label>
+                                    <textarea class="form-control" id="text" rows="5"
+                                              name="text"></textarea>
                                 </div>
 
                                 <div class="form-group row">

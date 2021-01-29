@@ -37,7 +37,7 @@ class ProductsController extends Controller
     public function create(Request $request)
     {
         return view('admin_panel.products_new', [
-            'section_id' => $request->section_id,
+            "section_id" => request('section_id')
         ]);
     }
 
@@ -50,7 +50,6 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //TODO Сделать валидацию (поля weight и price должны быть integer)
-
         Product::create($this->setpositionToRequest($request));
 
         return redirect(route('products.index'));
@@ -133,7 +132,7 @@ class ProductsController extends Controller
      * Значение шага имеет логический тип данных:
      * true - продукт необходимо переместить на шаг выше;
      * false - продукт необходимо переместить на шаг ниже.
-     * Помимо проверки на значение шага, выполняется проверка на его кройность. Последний продукт невозможно перенести
+     * Помимо проверки на значение шага, выполняется проверка на его крайность. Последний продукт невозможно перенести
      * еще ниже, а самый первый продукт - выше.
      *
      * Метод возвращает json в котором содержится обновленный html таблицы продуктов.

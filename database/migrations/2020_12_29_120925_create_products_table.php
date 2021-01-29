@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('section_id')->unsigned();
             $table->integer('position');
             $table->text('description');
+            $table->text('text');
             $table->integer('weight');
             $table->integer('price');
             $table->boolean('status')->nullable();
