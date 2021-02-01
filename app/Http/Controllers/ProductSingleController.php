@@ -44,8 +44,9 @@ class ProductSingleController extends Controller
         //Если существует - распаковывается, если нет - объявляется пустой массив;
         $orders = (Cookie::has('orders')) ? unserialize(Cookie::get('orders')) : [];
 
-        //В массив добавляется новый заказ который перезаписывает куку 'orders';
-        $orders[] = $request;
+        //В массив по ключу product_id записывается значение количества;
+        $orders[$request['product_id']] = (array) $request['quantity'];
+
         Cookie::queue('orders', serialize($orders), 480);
 
         return redirect(route('cart'));

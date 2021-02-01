@@ -39,7 +39,7 @@
                             <!-- ============================================================== -->
                             <!-- Withdrawing orders  -->
                             <!-- ============================================================== -->
-                            @if(isset($orders[0]))
+                            @if($orders)
                                 @foreach($orders as $order)
                                     <tr class="text-center">
                                         <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
@@ -57,7 +57,7 @@
                                                 <label>
                                                     <input type="text" name="quantity"
                                                            class="quantity form-control input-number"
-                                                           value="{{ $order['quantity'] }}" min="1"
+                                                           value="{{ $order[0]}}" min="1"
                                                            max="100">
                                                 </label>
                                             </div>

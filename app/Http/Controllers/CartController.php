@@ -22,9 +22,9 @@ class CartController extends Controller
         $orders = (Cookie::has('orders')) ? unserialize(Cookie::get('orders')) : [];
 
         //К каждой позиции в массиве подтсягивается объект продукта и цена с учетом количества.
-        foreach ($orders as &$order) {
-            $order['product'] = Product::find($order['product_id']);
-            $order['fullPrice'] = $order['quantity'] * $order['product']->price;
+        foreach ($orders as $product_id => $quantity) {
+            $orders[$product_id]['product'] = Product::find($product_id);
+            $orders[$product_id]['fullPrice'] = $orders[$product_id][0] * $orders[$product_id]['product']->price;
         }
 
         return view('cart', compact('orders'));
