@@ -39,6 +39,10 @@
                     <p class="price"><span>₴{{ $product->price }}</span></p>
                     <p>{{ $product->description }}</p>
                     <p>{{ $product->text }}</p>
+
+                    @HasKey
+                    <form action="{{ route('add_to_cart', ['product_id' => $product->id]) }}" method="POST" id="form-id">
+                        @csrf
                     <div class="row mt-4">
                         <div class="w-100"></div>
                         <div class="input-group col-md-6 d-flex mb-3">
@@ -47,7 +51,8 @@
 	                   <i class="icon-minus"></i>
 	                	</button>
 	            		</span>
-                            <label for="quantity"></label><input type="text" id="quantity" name="quantity" class="form-control input-number" value="1"
+                            <label for="quantity"></label><input type="text" id="quantity" name="quantity"
+                                                                 class="form-control input-number" value="1"
                                                                  min="1" max="100">
                             <span class="input-group-btn ml-2">
 	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
@@ -56,7 +61,10 @@
 	             	</span>
                         </div>
                     </div>
-                    <p><a href="#" class="btn btn-primary py-3 px-5">Add to Cart</a></p>
+                        <p><a href="javascript:void(0);" class="btn btn-primary py-3 px-5" onclick="document.forms['form-id'].submit();">Add to Cart</a></p>
+                    </form>
+                    @endHasKey
+
                 </div>
             </div>
         </div>

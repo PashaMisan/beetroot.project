@@ -61,7 +61,21 @@
                             </form>
                         </div>
                     </li>
-                @endguest
+            @endguest
+
+            <!-- ============================================================== -->
+                <!-- Cart icon (only if there is an order key) -->
+                <!-- ============================================================== -->
+                @HasKey
+                <li class="nav-item cart"><a href="{{ route('cart') }}" class="nav-link"><span
+                            class="icon icon-shopping_cart"></span>{{--<span
+                            class="bag d-flex justify-content-center align-items-center"><small>1</small>--}}</span></a>
+                </li>
+                @endHasKey
+                <!-- ============================================================== -->
+                <!-- End cart icon  -->
+                <!-- ============================================================== -->
+
             </ul>
         </div>
     </div>

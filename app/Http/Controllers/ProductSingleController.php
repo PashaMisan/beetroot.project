@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Admin_panel_models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\View\View;
 
+/**
+ * Class ProductSingleController
+ * @package App\Http\Controllers
+ */
 class ProductSingleController extends Controller
 {
     /**
@@ -19,6 +26,29 @@ class ProductSingleController extends Controller
     public function index(Product $product)
     {
         return view('productSingle', compact('product'));
+    }
+
+    /**
+     * Метод принимает request параметры, и зписывает их в cookie пользователя;
+     *
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function addToCart()
+    {
+        //TODO Добавить проверку на quantity. Должно быть только int
+
+        //Массив ниже содержит следующую структуру ["quantity" => int, "product_id" => int];
+        $request = request()->except('_token');
+
+        //Проверяется существование куки 'orders'.
+        //Если существует - распаковывается, если нет - объявляется пустой массив;
+        $orders = (Cookie::has('orders')) ? unserialize(Cookie::get('orders')) : [];
+
+        //В массив добавляется новый заказ который перезаписывает куку 'orders';
+        $orders[] = $request;
+        Cookie::queue('orders', serialize($orders), 480);
+
+        return redirect(route('cart'));
     }
 
     /**
