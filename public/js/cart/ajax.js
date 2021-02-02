@@ -10,7 +10,8 @@ function tableUpdate(product_id, route, val=false) {
             }
 
             if (typeof data.fullPrice !== 'undefined') {
-                document.getElementById('totalPrice' + product_id).innerHTML = data.fullPrice
+                document.getElementById('totalPrice').innerHTML = data.totalPrice
+                document.getElementById('fullPrice' + product_id).innerHTML = data.fullPrice
             }
 
             //console.log(data)

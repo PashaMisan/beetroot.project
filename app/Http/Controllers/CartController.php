@@ -41,7 +41,10 @@ class CartController extends Controller
     {
         $orders = $this->pullUpProducts();
 
-        return view('cart', compact('orders'));
+        return view('cart', [
+            'orders' => $orders,
+            'totalPrice' => array_sum(array_column($orders, 'fullPrice'))
+        ]);
     }
 
     /**
@@ -82,6 +85,7 @@ class CartController extends Controller
         //Возвращаем ответ в виде цены на товар с учетом его количества
         return response()->json([
             'fullPrice' => Product::find($product_id)->price * $quantity,
+            'totalPrice' => array_sum(array_column($this->pullUpProducts(), 'fullPrice'))
         ]);
     }
 

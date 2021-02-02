@@ -25,7 +25,7 @@
                     </label>
                 </div>
             </td>
-            <td class="total">₴<span id="totalPrice{{ $order['product']->id }}">{{ $order['fullPrice'] }}</span></td>
+            <td class="total">₴<span id="fullPrice{{ $order['product']->id }}">{{ $order['fullPrice'] }}</span></td>
         </tr>
     @endforeach
 @else
