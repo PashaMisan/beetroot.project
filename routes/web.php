@@ -24,6 +24,8 @@ Route::get('/call_waiter', 'ActionsFromMenuController@callWaiter')->name('waiter
 Route::get('/productSingle/{product}', 'ProductSingleController@index')->name('product_single');
 Route::post('/productSingle', 'ProductSingleController@addToCart')->name('add_to_cart');
 Route::get('/cart', 'CartController@index')->name('cart');
+Route::post('/cart/remove', 'CartController@removeFromCartAjax')->name('remove_product_ajax');
+Route::post('/cart/fullPrice', 'CartController@fullPriceAjax')->name('full_price_ajax');
 
 //Admin panel rout groups
 
