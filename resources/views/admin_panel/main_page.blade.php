@@ -59,9 +59,14 @@
 
 @section('JavaScripts')
     <script>
-        //Скрипт собирает все элементы с классом call и делает их мигающими красным цветом
+        //Скрипт собирает все элементы с классом call и выделяет их мигающими цветом
         setInterval(() =>
-            document.querySelectorAll(".call").forEach(element => element.classList.toggle("bg-danger")
+            document.querySelectorAll(".call").forEach(element => element.classList.toggle("bg-info")
+            ), 700)
+
+        //Скрипт собирает все элементы с классом ordered и выделяет их мигающими цветом
+        setInterval(() =>
+            document.querySelectorAll(".ordered").forEach(element => element.classList.toggle("bg-brand")
             ), 700)
 
         //Необходимые переменные для Ajax запроса

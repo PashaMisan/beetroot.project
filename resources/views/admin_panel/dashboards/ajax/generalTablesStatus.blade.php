@@ -24,7 +24,7 @@
 
         @else
 
-            <td><span class="mr-2"><span class="badge-dot badge-warning"></span>Free</span></td>
+            <td><span class="mr-2"><span class="badge-dot badge-light"></span>Free</span></td>
             <td>-</td>
             <td>-</td>
 
