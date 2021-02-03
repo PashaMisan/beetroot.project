@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin_panel_models\Cart;
+use App\Admin_panel_models\Order;
 use App\Admin_panel_models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\View\View;
@@ -79,7 +83,7 @@ class CartController extends Controller
         list($product_id, $quantity) = request('value');
 
         //Устанавливаем новое количчество продукта, сериаилизируем его и устанавливаем в cookie
-        $this->cart[$product_id] = (array) $quantity;
+        $this->cart[$product_id] = (array)$quantity;
         Cookie::queue('orders', serialize($this->cart), 480);
 
         //Возвращаем ответ в виде цены на товар с учетом его количества
@@ -87,6 +91,41 @@ class CartController extends Controller
             'fullPrice' => Product::find($product_id)->price * $quantity,
             'totalPrice' => array_sum(array_column($this->pullUpProducts(), 'fullPrice'))
         ]);
+    }
+
+
+    /**
+     * При вызове метода, продукты из корзины в куках пользователя переносятся в БД.
+     *
+     * При записи в БД заказ закрепленный за столиком меняет свой статус для отображения официанту.
+     *
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function confirmOrder()
+    {
+        //Проверка корзины на пустоту
+        if (!$this->cart) return redirect(route('cart'));
+
+        //В БД находится заказ закрепленный за столиком
+        $order = Order::where('key', request()->cookie('table_key'))->first();
+
+        //Для каждого продукта из корзины в куках создается отдельная позиция в таблице 'carts'
+        foreach ($this->cart as $key => $item) {
+            Cart::create([
+                'order_id' => $order->id,
+                'product_id' => $key,
+                'quantity' => $item[0],
+                'condition_id' => 1
+            ]);
+        }
+
+        //Заказу присваевается новый статус
+        $order->status_id = 3;
+        $order->save();
+
+        Cookie::queue('orders', serialize([]), 1);
+
+        return redirect(route('cart'));
     }
 
     /**

@@ -19,13 +19,19 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/setKey', 'Admin_panel\TableKeyController@setKey')->name('set_key');
 
-//TODO добавить проверку на наличие ключа заказа в куках пользователя
-Route::get('/call_waiter', 'ActionsFromMenuController@callWaiter')->name('waiter_call');
-Route::get('/productSingle/{product}', 'ProductSingleController@index')->name('product_single');
-Route::post('/productSingle', 'ProductSingleController@addToCart')->name('add_to_cart');
-Route::get('/cart', 'CartController@index')->name('cart');
-Route::post('/cart/remove', 'CartController@removeFromCartAjax')->name('remove_product_ajax');
-Route::post('/cart/fullPrice', 'CartController@fullPriceAjax')->name('full_price_ajax');
+//Группа роутов которые проходят проверку  на существование ключа 'table_key' в cookies пользователя
+Route::group([
+    'middleware' => ['checkTableKey']
+], function () {
+    Route::get('/call_waiter', 'ActionsFromMenuController@callWaiter')->name('waiter_call');
+    Route::get('/productSingle/{product}', 'ProductSingleController@index')->name('product_single');
+    Route::post('/productSingle', 'ProductSingleController@addToCart')->name('add_to_cart');
+    Route::get('/cart', 'CartController@index')->name('cart');
+    Route::post('/cart/remove', 'CartController@removeFromCartAjax')->name('remove_product_ajax');
+    Route::post('/cart/fullPrice', 'CartController@fullPriceAjax')->name('full_price_ajax');
+    Route::get('/cart/confirm', 'CartController@confirmOrder')->name('confirm');
+});
+
 
 //Admin panel rout groups
 
