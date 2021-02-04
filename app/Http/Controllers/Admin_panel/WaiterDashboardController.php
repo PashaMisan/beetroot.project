@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin_panel;
 
+use App\Admin_panel_models\Invoice;
 use App\Admin_panel_models\Order;
 use App\Admin_panel_models\Table;
 use App\Http\Controllers\Controller;
@@ -40,9 +41,13 @@ class WaiterDashboardController extends Controller
      */
     public function openTable(Request $request)
     {
+        $invoice = new Invoice();
+        $invoice->save();
+
         Order::create($request->merge([
             'user_id' => Auth::id(),
             'status_id' => 1,
+            'invoice_id' => $invoice->id,
             'key' => Str::random(5),
         ])->all());
 

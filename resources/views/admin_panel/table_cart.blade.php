@@ -75,7 +75,7 @@
                                 @endforeach
                                 <tr>
                                     <td colspan="4">
-                                        <a href="#" class="btn btn-outline-light float-right ml-2">View Details</a>
+                                        <a href="#" class="btn btn-outline-success float-right ml-2">Accept</a>
                                     </td>
                                 </tr>
                                 </tbody>

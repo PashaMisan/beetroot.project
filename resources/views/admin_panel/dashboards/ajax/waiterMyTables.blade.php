@@ -51,6 +51,8 @@
                    class="btn btn-outline-danger">Close</a>
                 <a href="{{ route('set_key', ['table_key' => $table->order->key]) }}"
                    class="btn btn-outline-success">QR</a>
+                <a href="{{ route('invoice') }}"
+                   class="btn btn-outline-brand">Invoice</a>
             </td>
         </tr>
     @endswitch
