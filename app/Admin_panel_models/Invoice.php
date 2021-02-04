@@ -10,4 +10,5 @@ class Invoice extends Model
     {
         return $this->hasOne(Order::class);
     }
+
 }

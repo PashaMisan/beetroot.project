@@ -13,7 +13,7 @@ class ConditionsSeeder extends Seeder
      */
     public function run()
     {
-        $actions = ['Sent', 'In progress'];
+        $actions = ['Sent', 'Accepted'];
         $conditions = [];
 
         foreach ($actions as $action) {

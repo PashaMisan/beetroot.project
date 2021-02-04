@@ -12,4 +12,9 @@ class Cart extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function condition()
+    {
+        return $this->belongsTo(Condition::class);
+    }
 }
