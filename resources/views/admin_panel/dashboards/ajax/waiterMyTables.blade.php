@@ -13,7 +13,7 @@
             <td>{{ $table->getWaiterName()}}</td>
             <td>{{ $table->order->created_at }}</td>
             <td>
-                <a href="#"
+                <a href="{{ route('carts.index', ['id' => $table->order->id]) }}"
                    class="btn btn-light">View</a>
             </td>
         </tr>

@@ -37,4 +37,30 @@ class Order extends Model
     {
         return self::where('key', Cookie::get('table_key'))->count();
     }
+
+    /**
+     * Метод возвращает id статуса заказа.
+     *
+     * statusManager( int $id[, int $setStatusId = null]) : int
+     *
+     * $id - айди необходимого заказа;
+     * $setStatusId - айди статуса который нужно установить;
+     *
+     * Без второго параметра метод возвращает айди статуса указанного заказа, либо false если заказ не найден.
+     * @param $id
+     * @param null $setStatusId
+     * @return mixed
+     */
+    static function statusManager($id, $setStatusId = null)
+    {
+        $order = self::find($id);
+
+        //Если заказ не найден - возвращается false
+        if(!$order) return false;
+
+        //Если вторым параметром был указан id статуса, то статус заказа обновляется
+        if($setStatusId) $order->update(['status_id' => $setStatusId]);
+
+        return $order->status_id;
+    }
 }

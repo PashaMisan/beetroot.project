@@ -14,6 +14,7 @@
 Route::get('/', 'MainPageController@index')->name('main');
 Route::get('/menu', 'MenuPageController@index')->name('menu');
 
+//TODO при выходе из аккаунта удалять ключ столика
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -49,6 +50,9 @@ Route::group([
     Route::get('{id}/closeTable', 'Admin_panel\WaiterDashboardController@closeTable')->name('close_table');
     //Если столик в статусе Call то переход по этому роуту изменит статус на open
     Route::get('{id}/accept', 'Admin_panel\WaiterDashboardController@acceptTable')->name('accept_table');
+
+    //В cart содержатся продукты которые были заказаны
+    Route::resource('carts', 'Admin_panel\CartsController');
 
     //Обрабатывает Ajax запрос с главной странички админ панели
     Route::post('/mainPageAjax', 'Admin_panel\MainPageController@answerAjax')
