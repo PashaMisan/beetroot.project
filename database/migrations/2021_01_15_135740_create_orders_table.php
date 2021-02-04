@@ -15,14 +15,20 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('table_id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('invoice_id');
-            $table->bigInteger('status_id');
+            $table->bigInteger('table_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('invoice_id')->unsigned();
+            $table->bigInteger('status_id')->unsigned();
             $table->string('key', 5);
             $table->timestamps();
         });
         //TODO Прописать связи
+        Schema::table('orders', function ($table) {
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
