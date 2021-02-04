@@ -31,9 +31,8 @@
                         <div class="card">
                             <div class="card-header p-4">
                                 <a class="pt-2 d-inline-block" href="index.html">Concept</a>
-
-                                <div class="float-right"> <h3 class="mb-0">Invoice #1</h3>
-                                    Date: 3 Dec, 2020</div>
+                                <div class="float-right"> <h3 class="mb-0">Invoice #{{ $invoice->id }}</h3>
+                                    {{ $invoice->updated_at }}</div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive-sm">

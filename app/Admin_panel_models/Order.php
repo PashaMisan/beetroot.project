@@ -25,6 +25,21 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)->using(Cart::class);
+    }
+
     /**
      * Метод проверяет наличие активного ключа столика в куках пользоваеля.
      *
