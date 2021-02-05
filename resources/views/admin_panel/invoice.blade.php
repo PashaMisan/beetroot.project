@@ -50,15 +50,22 @@
 
                                         @foreach($products as $key => $product)
                                             @if($product['condition'] == 'Accepted')
-                                            <tr>
-                                                <td class="center">{{ ++$key }}</td>
-                                                <td class="left strong">{{ $product['name'] }}</td>
-                                                <td class="right">${{ $product['price'] }}</td>
-                                                <td class="center">{{ $product['quantity'] }}</td>
-                                                <td class="right">${{ $product['fullPrice'] }}</td>
-                                            </tr>
+                                                <tr>
+                                                    <td class="center">{{ ++$key }}</td>
+                                                    <td class="left strong">{{ $product['name'] }}</td>
+                                                    <td class="right">${{ $product['price'] }}</td>
+                                                    <td class="center">{{ $product['quantity'] }}</td>
+                                                    <td class="right">${{ $product['fullPrice'] }}</td>
+                                                </tr>
+                                                {{ $i = true }}
                                             @endif
                                         @endforeach
+
+                                        @if(!isset($i))
+                                            <tr class="text-center">
+                                                <td class="center" colspan="5">No confirmed orders yet.</td>
+                                            </tr>
+                                        @endif
 
                                         </tbody>
                                     </table>
