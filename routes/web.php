@@ -55,6 +55,7 @@ Route::group([
 
     //В cart содержатся продукты которые были заказаны
     Route::resource('carts', 'Admin_panel\CartsController');
+    Route::get('acceptCarts', 'Admin_panel\CartsController@acceptCarts')->name('accept_carts');
 
     //Обрабатывает Ajax запрос с главной странички админ панели
     Route::post('/mainPageAjax', 'Admin_panel\MainPageController@answerAjax')

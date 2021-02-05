@@ -15,14 +15,21 @@ use Illuminate\View\View;
 
 class CartsController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Содержит в себе все продукты привязанные к заказу столика с состоянием Sent.
      *
-     * @return Application|Factory|View
+     * @var array
      */
-    public function index()
+    private $cartItems = [];
+
+    /**
+     * CartsController constructor.
+     */
+    public function __construct()
     {
-        $cartItems = Cart::whereOrder_id(request('id'))->with('product')->get();
+
+        $cartItems = Cart::whereOrder_id(request('id'))->whereCondition_id(1)->with('product')->get();
 
         //Если заказ не содержит в себе продукты, то статус заказа меняется на Open.
         if(!count($cartItems)) {
@@ -30,13 +37,25 @@ class CartsController extends Controller
             return redirect(route('admin_panel_main'));
         }
 
-        return view('admin_panel.table_cart', compact('cartItems'));
+        $this->cartItems = $cartItems->all();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|View
+     */
+    public function index()
+    {
+        return view('admin_panel.table_cart', [
+            'cartItems' => $this->cartItems,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -46,8 +65,8 @@ class CartsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -57,8 +76,8 @@ class CartsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
     public function show($id)
     {
@@ -68,8 +87,8 @@ class CartsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
     public function edit($id)
     {
@@ -79,9 +98,9 @@ class CartsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -100,5 +119,21 @@ class CartsController extends Controller
         $cart->delete();
 
         return redirect(route('carts.index', ['id' => $cart->order_id]));
+    }
+
+    /**
+     * Переводит все продукты заказа в статус Accepted.
+     *
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function acceptCarts()
+    {
+        foreach ($this->cartItems as $item) {
+            $item->update(['condition_id' => 2]);
+        }
+
+        Order::statusManager(\request('id'), 1);
+
+        return redirect(route('admin_panel_main'));
     }
 }

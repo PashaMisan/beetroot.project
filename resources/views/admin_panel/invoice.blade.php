@@ -57,7 +57,7 @@
                                                     <td class="center">{{ $product['quantity'] }}</td>
                                                     <td class="right">${{ $product['fullPrice'] }}</td>
                                                 </tr>
-                                                {{ $i = true }}
+                                                <span hidden>{{ $i = true }}</span>
                                             @endif
                                         @endforeach
 

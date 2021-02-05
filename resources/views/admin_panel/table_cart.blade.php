@@ -56,7 +56,8 @@
                                                 <div
                                                     class="col-sm-6 col-md-4 col-lg-3 f-icon d-flex justify-content-center"
                                                     onclick="event.preventDefault();
-                                                     document.getElementById('delete-form{{ $item->id }}').submit();"><i
+                                                        document.getElementById('delete-form{{ $item->id }}').submit();">
+                                                    <i
                                                         class="fas fa-times-circle"></i>
                                                 </div>
                                             </div>
@@ -73,9 +74,11 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
                                 <tr>
                                     <td colspan="4">
-                                        <a href="#" class="btn btn-outline-success float-right ml-2">Accept</a>
+                                        <a href="{{ route('accept_carts', ['id' => $cartItems[0]->order_id])}}"
+                                           class="btn btn-outline-success float-right ml-2">Accept</a>
                                     </td>
                                 </tr>
                                 </tbody>
