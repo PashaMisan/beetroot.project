@@ -63,6 +63,68 @@
         </div>
     </section>
 
+    <section class="ftco-section ftco-cart">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ftco-animate">
+                    <div class="cart-list">
+                        <h2 class="mb-3 text-center">Your cart story</h2>
+                        <table class="table">
+                            <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>Status</th>
+                                <th> </th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-cart">
+
+                            @if($cartStory)
+                                @foreach($cartStory['productArr'] as $product)
+                                    <tr class="text-center">
+                                        <td class="price">{{ $product['condition'] }}</td>
+                                        <td class="image-prod">
+                                            <div class="img"
+                                                 style="background-image:url({{ asset('images/menu-2.jpg') }});"></div>
+                                        </td>
+                                        <td class="product-name">
+                                            <h3>{{ $product['name'] }}</h3>
+                                        </td>
+                                        <td class="price">₴{{ $product['price'] }}</td>
+                                        <td class="quantity">{{ $product['quantity'] }}</td>
+                                        <td class="total">₴{{ $product['fullPrice'] }}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr class="text-center">
+                                    <td class="product-name" colspan="6">
+                                        <p>Your cart story is currently empty.</p>
+                                    </td>
+                                </tr>
+                            @endif
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>For payment</h3>
+                        <p class="d-flex total-price">
+                            <span>Total</span>
+                            <span>₴<a id="totalPrice">{{ $cartStory['sum'] }}</a></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">

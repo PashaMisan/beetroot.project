@@ -47,7 +47,8 @@ class CartController extends Controller
 
         return view('cart', [
             'orders' => $orders,
-            'totalPrice' => array_sum(array_column($orders, 'fullPrice'))
+            'totalPrice' => array_sum(array_column($orders, 'fullPrice')),
+            'cartStory' => $this->cartStory()
         ]);
     }
 
@@ -155,5 +156,24 @@ class CartController extends Controller
         }
 
         return $orders;
+    }
+
+    /**
+     * Метод собирает все заказанные продукты, а также их итоговую стоимость.
+     *
+     * @return array
+     */
+    private function cartStory(): array
+    {
+        $order = Order::where('key', request()->cookie('table_key'))->first();
+        $productArr = $order->productArr();
+
+        usort($productArr, function($a, $b){
+            return ($b['created_at'] - $a['created_at']);
+        });
+
+        $sum = $order->invoice->getArray_sum($productArr);
+
+        return compact('productArr', 'sum');
     }
 }
