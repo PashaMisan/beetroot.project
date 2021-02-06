@@ -4,40 +4,65 @@ namespace App\Admin_panel_models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cookie;
 
 class Order extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * Каждый Order имеет множество Carts.
+     *
+     * @return HasMany
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Каждый Order пренадлежит Status.
+     *
+     * @return BelongsTo
+     */
     public function status()
     {
         return $this->belongsTo(Status::class);
     }
 
+    /**
+     * Каждый Order пренадлежит Table.
+     *
+     * @return BelongsTo
+     */
     public function table()
     {
         return $this->belongsTo(Table::class);
     }
 
+    /**
+     * Каждый Order пренадлежит User.
+     *
+     * @return BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function cart()
-    {
-        return $this->hasMany(Cart::class);
-    }
-
+    /**
+     * Каждый Order пренадлежит Invoice.
+     *
+     * @return BelongsTo
+     */
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);
-    }
-
-    public function products()
-    {
-        return $this->belongsToMany(Product::class)->using(Cart::class);
     }
 
     /**
@@ -53,29 +78,34 @@ class Order extends Model
         return self::where('key', Cookie::get('table_key'))->count();
     }
 
+
     /**
-     * Метод возвращает id статуса заказа.
+     * Создание массива со всеми необходимыми данными о продуктах в Order.
      *
-     * statusManager( int $id[, int $setStatusId = null]) : int
+     * Метод собирает в массив все продукты которые находятся в Order. Каждый полученный вложенный массив состоит из
+     * следующих ключей: [`имя продукта`, `цена за единицу`, `количество`, `полная цена`, `состояние`].
+     * Чтобы метод вернул продукты только с определенным состоянием - необходимо указать имя нужного состояния
+     * в аргументе метода.
      *
-     * $id - айди необходимого заказа;
-     * $setStatusId - айди статуса который нужно установить;
-     *
-     * Без второго параметра метод возвращает айди статуса указанного заказа, либо false если заказ не найден.
-     * @param $id
-     * @param null $setStatusId
-     * @return mixed
+     * @param null $condition
+     * @return array
      */
-    static function statusManager($id, $setStatusId = null)
+    public function productArr($condition = null): array
     {
-        $order = self::find($id);
+        foreach ($this->carts()->with('product')->get() as $product) {
 
-        //Если заказ не найден - возвращается false
-        if(!$order) return false;
+            if (!is_null($condition) && $condition !== $product->condition->name) continue;
 
-        //Если вторым параметром был указан id статуса, то статус заказа обновляется
-        if($setStatusId) $order->update(['status_id' => $setStatusId]);
+            $products[] = [
+                'id' => $product->id,
+                'name' => $product->product->name,
+                'price' => $product->product->price,
+                'quantity' => $product->quantity,
+                'fullPrice' => $product->product->price * $product->quantity,
+                'condition' => $product->condition->name
+            ];
+        }
 
-        return $order->status_id;
+        return $products ?? [];
     }
 }

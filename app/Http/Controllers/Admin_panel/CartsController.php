@@ -8,38 +8,12 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
 class CartsController extends Controller
 {
-
-    /**
-     * Содержит в себе все продукты привязанные к заказу столика с состоянием Sent.
-     *
-     * @var array
-     */
-    private $cartItems = [];
-
-    /**
-     * CartsController constructor.
-     */
-    public function __construct()
-    {
-
-        $cartItems = Cart::whereOrder_id(request('id'))->whereCondition_id(1)->with('product')->get();
-
-        //Если заказ не содержит в себе продукты, то статус заказа меняется на Open.
-        if(!count($cartItems)) {
-            Order::statusManager(\request('id'), 1);
-            return redirect(route('admin_panel_main'));
-        }
-
-        $this->cartItems = $cartItems->all();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -47,64 +21,17 @@ class CartsController extends Controller
      */
     public function index()
     {
+        $order = Order::find(request('id'));
+        $cartItems = $order->productArr('Sent');
+
+        if (!$cartItems) {
+            return $this->orderStatusUpdate($order);
+        }
+
         return view('admin_panel.table_cart', [
-            'cartItems' => $this->cartItems,
+            'cartItems' => $cartItems,
+            'orderId' => $order->id
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return void
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return void
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return void
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -122,17 +49,34 @@ class CartsController extends Controller
     }
 
     /**
-     * Переводит все продукты заказа в статус Accepted.
+     * Переводит все продукты заказа в статус Accepted и записывает актуальную сумму заказа в чек.
      *
+     * @param Order $order
      * @return Application|RedirectResponse|Redirector
      */
-    public function acceptCarts()
+    public function acceptCarts(Order $order)
     {
-        foreach ($this->cartItems as $item) {
+        //Обновление статусов Cart
+        foreach ($order->carts as $item) {
             $item->update(['condition_id' => 2]);
         }
 
-        Order::statusManager(\request('id'), 1);
+        //Обновление итоговой суммы чека.
+        $order->invoice->sumUpdate();
+
+        return $this->orderStatusUpdate($order);
+    }
+
+    /**
+     * Метод обновляет статус заказа и перенаправляет на страницу понели администратора.
+     *
+     * @param Order $order
+     * @return Application|RedirectResponse|Redirector
+     */
+    private function orderStatusUpdate(Order $order)
+    {
+        //Обновление статуса заказа.
+        $order->update(['status_id' => 1]);
 
         return redirect(route('admin_panel_main'));
     }

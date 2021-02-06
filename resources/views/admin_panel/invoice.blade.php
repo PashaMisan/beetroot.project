@@ -31,8 +31,8 @@
                         <div class="card">
                             <div class="card-header p-4">
                                 <a class="pt-2 d-inline-block" href="index.html">Concept</a>
-                                <div class="float-right"><h3 class="mb-0">Invoice #{{ $invoice['id'] }}</h3>
-                                    {{ $invoice['updated_at'] }}</div>
+                                <div class="float-right"><h3 class="mb-0">Invoice #{{ $invoice->id }}</h3>
+                                    {{ $invoice->updated_at }}</div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive-sm">
@@ -48,23 +48,24 @@
                                         </thead>
                                         <tbody>
 
-                                        @foreach($products as $key => $product)
-                                            @if($product['condition'] == 'Accepted')
-                                                <tr>
-                                                    <td class="center">{{ ++$key }}</td>
-                                                    <td class="left strong">{{ $product['name'] }}</td>
-                                                    <td class="right">${{ $product['price'] }}</td>
-                                                    <td class="center">{{ $product['quantity'] }}</td>
-                                                    <td class="right">${{ $product['fullPrice'] }}</td>
-                                                </tr>
-                                                <span hidden>{{ $i = true }}</span>
-                                            @endif
-                                        @endforeach
+                                        @if(isset($products[0]))
+                                            @foreach($products as $key => $product)
 
-                                        @if(!isset($i))
+                                                    <tr>
+                                                        <td class="center">{{ ++$key }}</td>
+                                                        <td class="left strong">{{ $product['name'] }}</td>
+                                                        <td class="right">₴{{ $product['price'] }}</td>
+                                                        <td class="center">{{ $product['quantity'] }}</td>
+                                                        <td class="right">₴{{ $product['fullPrice'] }}</td>
+                                                    </tr>
+
+                                            @endforeach
+                                        @else
+
                                             <tr class="text-center">
                                                 <td class="center" colspan="5">No confirmed orders yet.</td>
                                             </tr>
+
                                         @endif
 
                                         </tbody>
@@ -81,7 +82,7 @@
                                                     <strong class="text-dark">Total</strong>
                                                 </td>
                                                 <td class="right">
-                                                    <strong class="text-dark">${{ $invoice['sum'] }}</strong>
+                                                    <strong class="text-dark">₴{{ $invoice['sum'] }}</strong>
                                                 </td>
                                             </tr>
                                             </tbody>

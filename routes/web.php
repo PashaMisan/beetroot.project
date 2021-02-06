@@ -51,11 +51,11 @@ Route::group([
     //Если столик в статусе Call то переход по этому роуту изменит статус на open
     Route::get('{id}/accept', 'Admin_panel\WaiterDashboardController@acceptTable')->name('accept_table');
     //Запрос на вывод счета
-    Route::get('invoice', 'Admin_panel\InvoiceController@index')->name('invoice');
+    Route::get('invoice/{invoice}', 'Admin_panel\InvoiceController@show')->name('invoice');
 
     //В cart содержатся продукты которые были заказаны
     Route::resource('carts', 'Admin_panel\CartsController');
-    Route::get('acceptCarts', 'Admin_panel\CartsController@acceptCarts')->name('accept_carts');
+    Route::get('acceptCarts/{order}', 'Admin_panel\CartsController@acceptCarts')->name('accept_carts');
 
     //Обрабатывает Ajax запрос с главной странички админ панели
     Route::post('/mainPageAjax', 'Admin_panel\MainPageController@answerAjax')

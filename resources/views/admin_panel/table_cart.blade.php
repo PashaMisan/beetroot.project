@@ -49,21 +49,21 @@
                                 @foreach($cartItems as $key => $item)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
-                                        <td>{{ $item->product->name }}</td>
-                                        <td>{{ $item->quantity }}</td>
+                                        <td>{{ $item['name'] }}</td>
+                                        <td>{{ $item['quantity'] }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <div
                                                     class="col-sm-6 col-md-4 col-lg-3 f-icon d-flex justify-content-center"
                                                     onclick="event.preventDefault();
-                                                        document.getElementById('delete-form{{ $item->id }}').submit();">
+                                                        document.getElementById('delete-form{{ $item['id'] }}').submit();">
                                                     <i
                                                         class="fas fa-times-circle"></i>
                                                 </div>
                                             </div>
 
-                                            <form id="delete-form{{ $item->id }}"
-                                                  action="{{ route('carts.destroy', ['id' => $item->id]) }}"
+                                            <form id="delete-form{{ $item['id'] }}"
+                                                  action="{{ route('carts.destroy', ['id' => $item['id']]) }}"
                                                   method="POST"
                                                   style="display: none;">
                                                 @csrf
@@ -77,7 +77,7 @@
 
                                 <tr>
                                     <td colspan="4">
-                                        <a href="{{ route('accept_carts', ['id' => $cartItems[0]->order_id])}}"
+                                        <a href="{{ route('accept_carts', ['id' => $orderId])}}"
                                            class="btn btn-outline-success float-right ml-2">Accept</a>
                                     </td>
                                 </tr>
