@@ -35,7 +35,7 @@
                     <div class="card">
                         <h5 class="card-header">Add new product</h5>
                         <div class="card-body">
-                            <form action="{{ route('products.store') }}" method="post">
+                            <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="product_name" class="col-form-label">Name</label>
@@ -58,6 +58,12 @@
                                     <label for="product_description">Text</label>
                                     <textarea class="form-control" id="text" rows="5"
                                               name="text"></textarea>
+                                </div>
+
+                                <div class="custom-file mb-3">
+                                    <input type="file" class="custom-file-input" id="customFile" name="image"
+                                           onchange="document.getElementById('image-lable').innerHTML = 'Image was uploaded successfully';">
+                                    <label id="image-lable" class="custom-file-label" for="customFile">Upload image</label>
                                 </div>
 
                                 <div class="form-group row">

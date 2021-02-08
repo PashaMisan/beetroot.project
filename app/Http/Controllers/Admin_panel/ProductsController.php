@@ -49,8 +49,11 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO Сделать валидацию (поля weight и price должны быть integer)
-        Product::create($this->setpositionToRequest($request));
+        //TODO Сделать валидацию (поля weight и price должны быть integer), и валидацию на image
+        Product::create($this->setpositionToRequest($request))
+            ->update([
+            'image' => $request->image->store('uploads', 'public')
+        ]);
 
         return redirect(route('products.index'));
     }
