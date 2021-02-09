@@ -138,7 +138,7 @@
                                 @foreach($section->products as $product)
                                     <div class="pricing-entry d-flex ftco-animate">
                                         <div class="img"
-                                             style="background-image: url({{ asset('images/dish-1.jpg') }});"></div>
+                                             style="background-image: url({{ asset('storage/'. $product->image) }});"></div>
                                         <div class="desc pl-3">
                                             <div class="d-flex text align-items-center">
                                                 <h3>
@@ -173,7 +173,7 @@
                                 @foreach($section->products as $product)
                                     <div class="pricing-entry d-flex ftco-animate">
                                         <div class="img"
-                                             style="background-image: url({{ asset('images/dish-1.jpg') }});"></div>
+                                             style="background-image: url({{ asset('storage/'. $product->image) }});"></div>
                                         <div class="desc pl-3">
                                             <div class="d-flex text align-items-center">
                                                 <h3>
@@ -254,7 +254,7 @@
                                                     <div class="menu-wrap">
                                                         <a href="{{ route('product_single', ['id' => $product->id]) }}"
                                                            class="menu-img img mb-4"
-                                                           style="background-image: url({{ asset('images/dish-1.jpg') }});">
+                                                           style="background-image: url({{ asset('storage/'. $product->image) }});">
                                                             <span style="color: rgba(255,255,255,0)">Some hidden text for normal displaying of cards
                                                                 Some hidden text for normal displaying of cards</span></a>
                                                         <div class="text">

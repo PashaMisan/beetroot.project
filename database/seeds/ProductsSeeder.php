@@ -15,11 +15,15 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
+        for ($i = 1; $i <= 27; $i++) {
+            copy('public/images/randomMenu/' . $i . '.jpg', 'storage/app/public/uploads/' . $i . '.jpg');
+        }
+
         $products = [];
         $menu = DatabaseSeeder::MENU;
 
         $section_id = 1;
-        foreach ($menu as $section) {
+        foreach ($menu as $key1 => $section) {
             foreach ($section as $key => $product) {
 
                 $products[] = [
@@ -30,6 +34,7 @@ class ProductsSeeder extends Seeder
                     'text' => file_get_contents('https://loripsum.net/api/1/medium/plaintext'),
                     'weight' => rand(100, 400),
                     'price' => rand(40, 400),
+                    'image' => ($key1 === 'DRINKS') ? 'uploads/' . rand(19, 24) . '.jpg' : 'uploads/' . rand(1, 18) . '.jpg',
                     'status' => rand(0, 1),
                     'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
