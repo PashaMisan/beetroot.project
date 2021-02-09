@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('name', 200);
             $table->bigInteger('section_id')->unsigned();
             $table->integer('position');
-            $table->text('description');
-            $table->text('text');
+            $table->string('description', 500);
+            $table->string('text', 2000);
             $table->integer('weight');
             $table->integer('price');
             $table->string('image')->nullable();

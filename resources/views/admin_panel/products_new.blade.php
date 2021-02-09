@@ -35,12 +35,22 @@
                     <div class="card">
                         <h5 class="card-header">Add new product</h5>
                         <div class="card-body">
+
+                            @error('section_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+
                             <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
+
                                 <div class="form-group">
                                     <label for="product_name" class="col-form-label">Name</label>
-                                    <input id="product_name" type="text" class="form-control" name="name">
+                                    <input id="product_name" type="text" class="form-control" name="name"
+                                           value="{{ old('name') }}">
                                 </div>
+                                @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
 
                                 <div class="form-group " style="display: none;">
                                     <label for="section_id" class="col-form-label">Section_id</label>
@@ -51,31 +61,50 @@
                                 <div class="form-group">
                                     <label for="product_description">Description</label>
                                     <textarea class="form-control" id="description" rows="3"
-                                              name="description"></textarea>
+                                              name="description">{{ old('description') }}</textarea>
                                 </div>
+                                @error('description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
 
                                 <div class="form-group">
                                     <label for="product_description">Text</label>
                                     <textarea class="form-control" id="text" rows="5"
-                                              name="text"></textarea>
+                                              name="text">{{ old('text') }}</textarea>
                                 </div>
+                                @error('text')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
 
                                 <div class="custom-file mb-3">
                                     <input type="file" class="custom-file-input" id="customFile" name="image"
                                            onchange="document.getElementById('image-lable').innerHTML = 'Image was uploaded successfully';">
-                                    <label id="image-lable" class="custom-file-label" for="customFile">Upload image</label>
+                                    <label id="image-lable" class="custom-file-label" for="customFile">Upload
+                                        image</label>
                                 </div>
+                                @error('image')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
 
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Weight</label>
                                     <div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
                                         <input id="product_weight" type="text" class="form-control"
-                                               name="weight">
+                                               name="weight" value="{{ old('weight') }}">
                                     </div>
+                                    @error('weight')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Price</label>
                                     <div class="col-sm-4 col-lg-3">
-                                        <input id="product_price" type="text" class="form-control" name="price">
+                                        <input id="product_price" type="text" class="form-control" name="price"
+                                               value="{{ old('price') }}">
                                     </div>
+                                    @error('price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
                                 </div>
 
                                 <div class="row">

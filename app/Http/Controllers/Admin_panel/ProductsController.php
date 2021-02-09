@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin_panel;
 
 use App\Admin_panel_models\Product;
 use App\Admin_panel_models\Section;
+use App\Http\Requests\StoreProduct;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -44,12 +45,11 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreProduct $request
      * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store(StoreProduct $request)
     {
-        //TODO Сделать валидацию (поля weight и price должны быть integer), и валидацию на image
         Product::create($this->setpositionToRequest($request))
             ->update([
             'image' => $request->image->store('uploads', 'public')
@@ -88,13 +88,13 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param StoreProduct $request
      * @param Product $product
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(Request $request, Product $product)
+    public function update(StoreProduct $request, Product $product)
     {
-        //TODO Сделать валидацию (поля weight и price должны быть integer)
+
         ($request->status) ?? $request->merge(['status' => 0]);
 
         if ($request->section_id == $product->section_id) {
@@ -103,6 +103,9 @@ class ProductsController extends Controller
             $product->update($this->setpositionToRequest($request));
             $product->incrementRowBySection();
         }
+
+        $product ->update([
+            'image' => $request->image->store('uploads', 'public')]);
 
         return redirect(route('products.index'));
     }
