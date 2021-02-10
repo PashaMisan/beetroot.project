@@ -43,6 +43,7 @@ class CartController extends Controller
      */
     public function index()
     {
+        //TODO Добавить возможность послать запрос на чек
         $orders = $this->pullUpProducts();
 
         return view('cart', [

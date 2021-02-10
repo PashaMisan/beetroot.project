@@ -102,6 +102,7 @@ class Order extends Model
                 'price' => $product->product->price,
                 'quantity' => $product->quantity,
                 'fullPrice' => $product->product->price * $product->quantity,
+                'image' => $product->product->image,
                 'condition' => $product->condition->name,
                 'created_at'=> $product->created_at->timestamp
             ];

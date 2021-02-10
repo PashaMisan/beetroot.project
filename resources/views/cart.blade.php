@@ -57,7 +57,8 @@
                             <span>₴<a id="totalPrice">{{ $totalPrice }}</a></span>
                         </p>
                     </div>
-                    <p class="text-center"><a href="{{ route('confirm') }}" class="btn btn-primary py-3 px-4">Confirm this order</a></p>
+                    <p class="text-center"><a href="{{ route('confirm') }}" class="btn btn-primary py-3 px-4">Confirm
+                            this order</a></p>
                 </div>
             </div>
         </div>
@@ -73,7 +74,7 @@
                             <thead class="thead-primary">
                             <tr class="text-center">
                                 <th>Status</th>
-                                <th> </th>
+                                <th></th>
                                 <th>Product</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -88,7 +89,7 @@
                                         <td class="price">{{ $product['condition'] }}</td>
                                         <td class="image-prod">
                                             <div class="img"
-                                                 style="background-image:url({{ asset('images/menu-2.jpg') }});"></div>
+                                                 style="background-image:url({{ asset('storage/'. $product['image']) }});"></div>
                                         </td>
                                         <td class="product-name">
                                             <h3>{{ $product['name'] }}</h3>

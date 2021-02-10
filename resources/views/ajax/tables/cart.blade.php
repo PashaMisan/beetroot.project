@@ -7,7 +7,7 @@
                         class="icon-close"></span></a></td>
             <td class="image-prod">
                 <div class="img"
-                     style="background-image:url({{ asset('images/menu-2.jpg') }});"></div>
+                     style="background-image:url({{ asset('storage/'. $order['product']->image) }});"></div>
             </td>
             <td class="product-name">
                 <h3>{{ $order['product']->name }}</h3>
