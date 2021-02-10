@@ -264,14 +264,12 @@
                                                             <div>{{ $product->description }}
                                                             </div>
                                                             <p class="price"><span>₴{{ $product->price }}</span></p>
-
-                                                            @HasKey
                                                             <p>
                                                                 <a href="{{ route('product_single', ['id' => $product->id]) }}"
                                                                    class="btn btn-primary btn-outline-primary">
-                                                                    Add to cart</a></p>
-                                                            @endHasKey
-
+                                                                    See details
+                                                                </a>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>

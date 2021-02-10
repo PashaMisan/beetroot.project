@@ -23,6 +23,7 @@ class StoreProduct extends FormRequest
      */
     public function rules()
     {
+        //TODO Настроить корректное отображение ошибок
         return [
             'name' => ['required', 'max:200', 'string'],
             'section_id' => ['required', 'integer', 'exists:sections,id'],

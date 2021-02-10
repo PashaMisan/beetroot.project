@@ -48,6 +48,7 @@ class CartController extends Controller
         return view('cart', [
             'orders' => $orders,
             'totalPrice' => array_sum(array_column($orders, 'fullPrice')),
+            //TODO Добавить надпись на случай если история пустая
             'cartStory' => $this->cartStory()
         ]);
     }
