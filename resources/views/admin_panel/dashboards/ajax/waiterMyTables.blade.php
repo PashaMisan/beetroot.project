@@ -2,6 +2,23 @@
 
     @switch($table->getStatus())
 
+        @case('Payment request')
+        <tr class="bg-secondary payment">
+            <td>{{ ++$key }}</td>
+            <td>{{ $table->number  }}</td>
+            <td>
+                <span class="mr-2"><span class="badge-dot badge-warning">
+                                    </span>{{ $table->getStatus() }}</span>
+            </td>
+            <td>{{ $table->getWaiterName()}}</td>
+            <td>{{ $table->order->created_at }}</td>
+            <td>
+                <a href="#"
+                   class="btn btn-light">Get invoice</a>
+            </td>
+        </tr>
+        @break
+
         @case('Ordered')
         <tr class="bg-brand ordered">
             <td>{{ ++$key }}</td>

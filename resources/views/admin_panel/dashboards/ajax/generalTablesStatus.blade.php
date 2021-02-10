@@ -3,6 +3,19 @@
     @if(isset($table->order))
 
         @switch($table->getStatus())
+
+            @case('Payment request')
+            <tr class="payment">
+                <td>{{ ++$key }}</td>
+                <td>{{ $table->number  }}</td>
+                <td>
+                    <span class="mr-2"><span class="badge-dot badge-warning"></span>Payment request</span>
+                </td>
+                <td>{{ $table->getWaiterName()}}</td>
+                <td>{{ $table->order->created_at }}</td>
+            </tr>
+            @break
+
             @case('Ordered')
             <tr class="ordered">
                 <td>{{ ++$key }}</td>
