@@ -13,7 +13,7 @@ class StatusesSeeder extends Seeder
      */
     public function run()
     {
-        $actions = ['Open', 'Call', 'Ordered'];
+        $actions = ['Open', 'Call', 'Ordered', 'Payment request'];
         $status = [];
 
         foreach ($actions as $action) {

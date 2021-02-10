@@ -50,7 +50,6 @@ class CartController extends Controller
         return view('cart', [
             'orders' => $orders,
             'totalPrice' => array_sum(array_column($orders, 'fullPrice')),
-            //TODO Добавить надпись на случай если история пустая
             'cartStory' => $this->cartStory(),
             'products' => Product::randomProducts(array_rand(array_flip(array_unique(Product::whereStatus(1)
                 ->pluck('section_id')
@@ -132,6 +131,28 @@ class CartController extends Controller
 
         Cookie::queue('orders', serialize([]), 1);
 
+        return redirect(route('cart'));
+    }
+
+    /**
+     * Метод меняет статус Order на Payment request.
+     *
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function payTheBill()
+    {
+        $key = Cookie::get('table_key');
+        $order = Order::where('key', $key)->first();
+        $carts = $order->carts()->get();
+
+        foreach ($carts as $cart) {
+            //TODO Добавить сообщение что не все товары были подтверждены официантом
+            if ($cart->condition_id !== 2) return redirect(route('cart'));
+        }
+
+        $order->update(['status_id' => 4]);
+
+        //TODO Добавить сообщение что запрос отправлен официанту
         return redirect(route('cart'));
     }
 

@@ -31,6 +31,7 @@ Route::group([
     Route::post('/cart/remove', 'CartController@removeFromCartAjax')->name('remove_product_ajax');
     Route::post('/cart/fullPrice', 'CartController@fullPriceAjax')->name('full_price_ajax');
     Route::get('/cart/confirm', 'CartController@confirmOrder')->name('confirm');
+    Route::get('/cart/payTheBill', 'CartController@payTheBill')->name('pay_the_bill');
 });
 
 

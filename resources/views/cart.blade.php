@@ -83,29 +83,27 @@
                             </thead>
                             <tbody id="table-cart">
 
-                            @if($cartStory)
-                                @foreach($cartStory['productArr'] as $product)
-                                    <tr class="text-center">
-                                        <td class="price">{{ $product['condition'] }}</td>
-                                        <td class="image-prod">
-                                            <div class="img"
-                                                 style="background-image:url({{ asset('storage/'. $product['image']) }});"></div>
-                                        </td>
-                                        <td class="product-name">
-                                            <h3>{{ $product['name'] }}</h3>
-                                        </td>
-                                        <td class="price">₴{{ $product['price'] }}</td>
-                                        <td class="quantity">{{ $product['quantity'] }}</td>
-                                        <td class="total">₴{{ $product['fullPrice'] }}</td>
-                                    </tr>
-                                @endforeach
-                            @else
+                            @forelse ($cartStory['productArr'] as $product)
+                                <tr class="text-center">
+                                    <td class="price">{{ $product['condition'] }}</td>
+                                    <td class="image-prod">
+                                        <div class="img"
+                                             style="background-image:url({{ asset('storage/'. $product['image']) }});"></div>
+                                    </td>
+                                    <td class="product-name">
+                                        <h3>{{ $product['name'] }}</h3>
+                                    </td>
+                                    <td class="price">₴{{ $product['price'] }}</td>
+                                    <td class="quantity">{{ $product['quantity'] }}</td>
+                                    <td class="total">₴{{ $product['fullPrice'] }}</td>
+                                </tr>
+                            @empty
                                 <tr class="text-center">
                                     <td class="product-name" colspan="6">
                                         <p>Your cart story is currently empty.</p>
                                     </td>
                                 </tr>
-                            @endif
+                            @endforelse
 
                             </tbody>
                         </table>
@@ -121,6 +119,13 @@
                             <span>₴<a id="totalPrice">{{ $cartStory['sum'] }}</a></span>
                         </p>
                     </div>
+
+                    @isset($cartStory['productArr'][0])
+                        <p class="text-center"><a href="{{ route('pay_the_bill') }}" class="btn btn-primary py-3 px-4">
+                                Pay the bill
+                            </a></p>
+                    @endisset
+
                 </div>
             </div>
         </div>
