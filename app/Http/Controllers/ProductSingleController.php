@@ -25,8 +25,7 @@ class ProductSingleController extends Controller
      */
     public function index(Product $product)
     {
-        // Выбирает 4 рандомных продукта из секции выбраного продукта.
-        $products = Product::whereSection_id($product->section_id)->whereStatus(1)->inRandomOrder()->take(4)->get();
+        $products = Product::randomProducts($product->section_id, 4);
 
         return view('productSingle', compact('product', 'products'));
     }

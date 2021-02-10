@@ -63,4 +63,19 @@ class Product extends Model
         }
         return true;
     }
+
+    /**
+     * Метод возвращает рандомные продукты из БД.
+     *
+     * В аргументе необходимо указать айди секции из которой нужно брать продукты, и по необходимости количество
+     * этих продуктов.
+     *
+     * @param $sectionId
+     * @param int $quantity
+     * @return mixed
+     */
+    static function randomProducts($sectionId, $quantity = 4)
+    {
+        return Product::whereSection_id($sectionId)->whereStatus(1)->inRandomOrder()->take($quantity)->get();
+    }
 }

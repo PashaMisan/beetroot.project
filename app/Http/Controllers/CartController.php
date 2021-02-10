@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin_panel_models\Cart;
 use App\Admin_panel_models\Order;
 use App\Admin_panel_models\Product;
+use App\Admin_panel_models\Section;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -50,7 +51,10 @@ class CartController extends Controller
             'orders' => $orders,
             'totalPrice' => array_sum(array_column($orders, 'fullPrice')),
             //TODO Добавить надпись на случай если история пустая
-            'cartStory' => $this->cartStory()
+            'cartStory' => $this->cartStory(),
+            'products' => Product::randomProducts(array_rand(array_flip(array_unique(Product::whereStatus(1)
+                ->pluck('section_id')
+                ->toArray()))))
         ]);
     }
 
@@ -170,7 +174,7 @@ class CartController extends Controller
         $order = Order::where('key', request()->cookie('table_key'))->first();
         $productArr = $order->productArr();
 
-        usort($productArr, function($a, $b){
+        usort($productArr, function ($a, $b) {
             return ($b['created_at'] - $a['created_at']);
         });
 
