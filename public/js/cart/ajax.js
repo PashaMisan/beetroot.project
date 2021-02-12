@@ -5,13 +5,22 @@ function tableUpdate(product_id, route, val=false) {
     getFetchPromise(csrf, route, value)
         .then((data) => {
 
-            if (typeof data.html !== 'undefined') {
-                document.getElementById('table-cart').innerHTML = data.html
+            document.getElementById('warning' + product_id).innerHTML="";
+
+            if (data.status === 200) {
+
+                if (typeof data.html !== 'undefined') {
+                    document.getElementById('table-cart').innerHTML = data.html
+                }
+
+                if (typeof data.fullPrice !== 'undefined') {
+                    document.getElementById('totalPrice').innerHTML = data.totalPrice
+                    document.getElementById('fullPrice' + product_id).innerHTML = data.fullPrice
+                }
             }
 
-            if (typeof data.fullPrice !== 'undefined') {
-                document.getElementById('totalPrice').innerHTML = data.totalPrice
-                document.getElementById('fullPrice' + product_id).innerHTML = data.fullPrice
+            if (data.status === 400) {
+                document.getElementById('warning' + product_id).innerHTML = 'Incorrect value'
             }
 
             //console.log(data)

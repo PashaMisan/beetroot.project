@@ -24,6 +24,7 @@
                                oninput="tableUpdate({{ $order['product']->id }}, '{{ route('full_price_ajax') }}', value)">
                     </label>
                 </div>
+                <span class="alert text-danger" id="warning{{ $order['product']->id }}"></span>
             </td>
             <td class="total">₴<span id="fullPrice{{ $order['product']->id }}">{{ $order['fullPrice'] }}</span></td>
         </tr>

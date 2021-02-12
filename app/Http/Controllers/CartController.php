@@ -73,7 +73,8 @@ class CartController extends Controller
 
         //Возваращаем ответ в виде обновленной html странички
         return response()->json([
-            'html' => view('ajax.tables.cart')->with(['orders' => $this->pullUpProducts()])->render()
+            'html' => view('ajax.tables.cart')->with(['orders' => $this->pullUpProducts()])->render(),
+            'status' => 200
         ]);
     }
 
@@ -88,14 +89,20 @@ class CartController extends Controller
         //Получаем значение id продукта и его новое количество
         list($product_id, $quantity) = request('value');
 
+        //Валидируем введенное количество, если оно не прошло валидацию - возвращаем 400 статус
+        if (!is_numeric($quantity) || !$quantity) return response()->json(['status' => 400]);
+        $quantity = abs((integer)$quantity);
+
         //Устанавливаем новое количчество продукта, сериаилизируем его и устанавливаем в cookie
+        //$quantity = abs((integer)$quantity);
         $this->cart[$product_id] = (array)$quantity;
         Cookie::queue('orders', serialize($this->cart), 480);
 
         //Возвращаем ответ в виде цены на товар с учетом его количества
         return response()->json([
             'fullPrice' => Product::find($product_id)->price * $quantity,
-            'totalPrice' => array_sum(array_column($this->pullUpProducts(), 'fullPrice'))
+            'totalPrice' => array_sum(array_column($this->pullUpProducts(), 'fullPrice')),
+            'status' => 200
         ]);
     }
 

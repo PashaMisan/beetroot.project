@@ -33,14 +33,16 @@ class ProductSingleController extends Controller
     /**
      * Метод принимает request параметры, и зписывает их в cookie пользователя;
      *
+     * @param Request $request
      * @return Application|RedirectResponse|Redirector
      */
-    public function addToCart()
+    public function addToCart(Request $request)
     {
-        //TODO Добавить проверку на quantity. Должно быть только int
-
-        //Массив ниже содержит следующую структуру ["quantity" => int, "product_id" => int];
-        $request = request()->except('_token');
+        //Массив $request будет содержать следующую структуру ["quantity" => int, "product_id" => int];
+         $request = $request->validate([
+             'quantity' => 'required|min:0|numeric|not_in:0',
+             'product_id' => 'required|min:0|numeric|not_in:0|exists:products,id',
+        ]);
 
         //Проверяется существование куки 'orders'.
         //Если существует - распаковывается, если нет - объявляется пустой массив;
@@ -52,71 +54,5 @@ class ProductSingleController extends Controller
         Cookie::queue('orders', serialize($orders), 480);
 
         return redirect(route('cart'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Product $product
-     * @return void
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Product $product
-     * @return void
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Product $product
-     * @return void
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Product $product
-     * @return void
-     */
-    public function destroy(Product $product)
-    {
-        //
     }
 }

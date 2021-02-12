@@ -61,6 +61,11 @@
 	                 </button>
 	             	</span>
                             </div>
+
+                            @error('quantity')
+                            <div class="alert text-danger">{{ $message }}</div>
+                            @enderror
+
                         </div>
                         <p><a href="javascript:void(0);" class="btn btn-primary py-3 px-5"
                               onclick="document.forms['form-id'].submit();">Add to Cart</a></p>
