@@ -54,10 +54,9 @@ class WaiterDashboardController extends Controller
         return redirect(route('admin_panel_main'));
     }
 
-    public function closeTable($id)
+    public function closeTable(Invoice $invoice)
     {
-        //Чтобы сработал  Event::listen в EventServiceProvider нужно вызывать метод first()
-        Order::whereTable_id($id)->first()->delete();
+        $invoice->order->delete();
 
         return redirect(route('admin_panel_main'));
     }
@@ -74,4 +73,6 @@ class WaiterDashboardController extends Controller
 
         return redirect(route('admin_panel_main'));
     }
+
+
 }

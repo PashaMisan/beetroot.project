@@ -78,6 +78,15 @@ class Order extends Model
         return self::where('key', Cookie::get('table_key'))->count();
     }
 
+    /**
+     * Метод проверяет наличие статуса Payment request в Order.
+     *
+     * @return bool
+     */
+    public function onPaymentRequest() : bool
+    {
+        return $this->status_id === 4;
+    }
 
     /**
      * Создание массива со всеми необходимыми данными о продуктах в Order.

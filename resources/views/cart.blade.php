@@ -57,8 +57,12 @@
                             <span>₴<a id="totalPrice">{{ $totalPrice }}</a></span>
                         </p>
                     </div>
+
+                    @OrderNotInPaymentRequestStatus
                     <p class="text-center"><a href="{{ route('confirm') }}" class="btn btn-primary py-3 px-4">Confirm
                             this order</a></p>
+                    @endOrderNotInPaymentRequestStatus
+
                 </div>
             </div>
         </div>
@@ -120,11 +124,13 @@
                         </p>
                     </div>
 
+                    @OrderNotInPaymentRequestStatus
                     @isset($cartStory['productArr'][0])
                         <p class="text-center"><a href="{{ route('pay_the_bill') }}" class="btn btn-primary py-3 px-4">
                                 Pay the bill
                             </a></p>
                     @endisset
+                    @endOrderNotInPaymentRequestStatus
 
                 </div>
             </div>

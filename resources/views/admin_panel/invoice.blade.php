@@ -26,7 +26,7 @@
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
-                <div class="row">
+                <div class="row" id="printableArea">
                     <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header p-4">
@@ -51,13 +51,13 @@
                                         @if(isset($products[0]))
                                             @foreach($products as $key => $product)
 
-                                                    <tr>
-                                                        <td class="center">{{ ++$key }}</td>
-                                                        <td class="left strong">{{ $product['name'] }}</td>
-                                                        <td class="right">₴{{ $product['price'] }}</td>
-                                                        <td class="center">{{ $product['quantity'] }}</td>
-                                                        <td class="right">₴{{ $product['fullPrice'] }}</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td class="center">{{ ++$key }}</td>
+                                                    <td class="left strong">{{ $product['name'] }}</td>
+                                                    <td class="right">₴{{ $product['price'] }}</td>
+                                                    <td class="center">{{ $product['quantity'] }}</td>
+                                                    <td class="right">₴{{ $product['fullPrice'] }}</td>
+                                                </tr>
 
                                             @endforeach
                                         @else
@@ -93,6 +93,51 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header p-4">
+                                <div class="d-flex justify-content-between">
+
+                                    <div class="d-flex align-items-center" onclick="printDiv('printableArea')">
+                                        <div class="btn btn-light">
+                                            <i class="fas fa-print"> Print invoice</i>
+                                        </div>
+                                    </div>
+
+                                    <a href="#"
+                                       data-toggle="modal" data-target="#exampleModal"
+                                       class="btn btn-outline-danger">Close order</a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h5 class="modal-title text-danger" id="exampleModalLabel">
+                                                        Warning!</h5>
+                                                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </a>
+                                                </div>
+                                                <div class="modal-body text-center">
+                                                    <p>Are you sure that the order has been paid?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="#" class="btn btn-secondary"
+                                                       data-dismiss="modal">Cancel</a>
+                                                    <a href="{{ route('close_table', ['id' => $invoice->id]) }}"
+                                                       class="btn btn-primary">Yes, I am sure</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <!-- ============================================================== -->
@@ -100,3 +145,5 @@
         <!-- ============================================================== -->
     </div>
 @endsection
+
+<script src="{{ asset('admin_panel/invoice/invoice_page.js') }}"></script>

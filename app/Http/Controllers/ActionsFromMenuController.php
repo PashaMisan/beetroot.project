@@ -11,7 +11,8 @@ class ActionsFromMenuController extends Controller
     public  function callWaiter()
     {
         //TODO Вернуть сообщение о том что официант сейчас подойдет
-        //TODO Если был отправлен заказ, и официант его еще не подтвердил - вернуть сообщение и не изменять статус
+        //TODO Изменять статус заказа только в случае если он находится в статусе Open
+        //TODO В случае если заказ не в статусе Open - вернуть сообщение что официант сейчас обрабатывает этот заказ
         //Чтобы сработал  Event::listen в EventServiceProvider нужно вызывать метод first()
         Order::where('key', request()->cookie('table_key'))->first()->update(['status_id' => 2]);;
 

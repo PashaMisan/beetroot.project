@@ -13,8 +13,8 @@
             <td>{{ $table->getWaiterName()}}</td>
             <td>{{ $table->order->created_at }}</td>
             <td>
-                <a href="#"
-                   class="btn btn-light">Get invoice</a>
+                <a href="{{ route('invoice', ['id' => $table->order->invoice_id]) }}"
+                   class="btn btn-light">Invoice</a>
             </td>
         </tr>
         @break
@@ -64,8 +64,6 @@
             <td>{{ $table->getWaiterName()}}</td>
             <td>{{ $table->order->created_at }}</td>
             <td>
-                <a href="{{ route('close_table', ['id' => $table->id]) }}"
-                   class="btn btn-outline-danger">Close</a>
                 <a href="{{ route('set_key', ['table_key' => $table->order->key]) }}"
                    class="btn btn-outline-success">QR</a>
                 <a href="{{ route('invoice', ['id' => $table->order->invoice_id]) }}"

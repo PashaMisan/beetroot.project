@@ -46,5 +46,9 @@ class AppServiceProvider extends ServiceProvider
             return !Order::hasKey();
         });
 
+        Blade::if('OrderNotInPaymentRequestStatus', function () {
+            return !Order::where('key', Cookie::get('table_key'))->first()->onPaymentRequest();
+        });
+
     }
 }

@@ -105,6 +105,7 @@
     @endHasNotKey
 
     @HasKey
+    @OrderNotInPaymentRequestStatus
     <section class="mt-2">
 
         <div class="overlay"></div>
@@ -121,6 +122,7 @@
         </div>
 
     </section>
+    @endOrderNotInPaymentRequestStatus
     @endHasKey
 
     <section class="ftco-section">

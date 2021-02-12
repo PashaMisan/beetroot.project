@@ -48,7 +48,7 @@ Route::group([
 
     //Запросы из панели официанта
     Route::post('openTable', 'Admin_panel\WaiterDashboardController@openTable')->name('open_table');
-    Route::get('{id}/closeTable', 'Admin_panel\WaiterDashboardController@closeTable')->name('close_table');
+    Route::get('{invoice}/closeTable', 'Admin_panel\WaiterDashboardController@closeTable')->name('close_table');
     //Если столик в статусе Call то переход по этому роуту изменит статус на open
     Route::get('{id}/accept', 'Admin_panel\WaiterDashboardController@acceptTable')->name('accept_table');
     //Запрос на вывод счета
