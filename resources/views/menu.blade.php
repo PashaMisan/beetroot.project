@@ -106,7 +106,7 @@
 
     @HasKey
     @OrderNotInPaymentRequestStatus
-    <section class="mt-2">
+    <section class="mt-2 text-center">
 
         <div class="overlay"></div>
         <div class="container">
@@ -114,9 +114,17 @@
 
                 <div class="col-md-8 col-sm-12 text-center ftco-animate">
                     <p>
-                        <a href="{{ route('waiter_call') }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Call waiter</a>
+                        <a onclick="callWaiter()" href="javascript:void(0)" class="btn btn-primary p-3 px-xl-4 py-xl-3">Call waiter</a>
                     </p>
                 </div>
+
+                {{-- Div будет отображать сообщение полученые из Ajax запроса --}}
+                <div id="messageDiv" class="col-md-6 ftco-animate text-center d-none">
+                    <div class="text py-4 d-block">
+                        <h2 class="heading"><span id="message"></span></h2>
+                    </div>
+                </div>
+                {{---------------------------------------------------------------}}
 
             </div>
         </div>
@@ -313,4 +321,22 @@
     <!-- ============================================================== -->
     <!-- End menu with dish cards  -->
     <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- Переменные для Ajax запроса  -->
+    <!-- ============================================================== -->
+    <script>
+        var route = '{{ route('waiter_call')}}';
+        var csrf = '{{ csrf_token() }}';
+    </script>
+    <!-- ============================================================== -->
+    <!-- Конец  -->
+    <!-- ============================================================== -->
 @endsection
+
+@section('scripts')
+    <script src="{{ asset('js/helpers/fetch.js') }}"></script>
+    <script src="{{ asset('js/menu/ajax.js') }}"></script>
+@endsection
+
+

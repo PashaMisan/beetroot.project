@@ -25,7 +25,7 @@ Route::get('/productSingle/{product}', 'ProductSingleController@index')->name('p
 Route::group([
     'middleware' => ['checkTableKey']
 ], function () {
-    Route::get('/call_waiter', 'ActionsFromMenuController@callWaiter')->name('waiter_call');
+    Route::post('/call_waiter', 'ActionsFromMenuController@callWaiterAjax')->name('waiter_call');
     Route::post('/productSingle', 'ProductSingleController@addToCart')->name('add_to_cart');
     Route::get('/cart', 'CartController@index')->name('cart');
     Route::post('/cart/remove', 'CartController@removeFromCartAjax')->name('remove_product_ajax');

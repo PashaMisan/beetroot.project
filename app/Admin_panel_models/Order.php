@@ -119,4 +119,14 @@ class Order extends Model
 
         return $products ?? [];
     }
+
+    /**
+     * Метод возвращает Order по ключу в cookies.
+     *
+     * @return mixed
+     */
+    static function getOrderByCookiesKey()
+    {
+        return Order::where('key', request()->cookie('table_key'))->first();
+    }
 }
