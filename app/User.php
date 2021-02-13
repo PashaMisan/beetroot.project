@@ -69,11 +69,6 @@ class User extends Authenticatable
         $this->roles()->sync($role, false);
     }
 
-    public function abilities()
-    {
-        return $this->roles->map->abilities->flatten()->pluck('name')->unique();
-    }
-
     public function isAdmin()
     {
         return $this->roles->contains('name', 'administrator');

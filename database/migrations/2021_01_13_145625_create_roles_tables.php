@@ -16,33 +16,7 @@ class CreateRolesTables extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('label')->nullable();
             $table->timestamps();
-        });
-
-        Schema::create('abilities', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('label')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('ability_role', function (Blueprint $table) {
-            $table->primary(['role_id', 'ability_id']);
-
-            $table->unsignedBigInteger('role_id');
-            $table->unsignedBigInteger('ability_id');
-            $table->timestamps();
-
-            $table->foreign('role_id')
-                ->references('id')
-                ->on('roles')
-                ->onDelete('cascade');
-
-            $table->foreign('ability_id')
-                ->references('id')
-                ->on('abilities')
-                ->onDelete('cascade');
         });
 
         Schema::create('role_user', function (Blueprint $table) {
@@ -73,8 +47,6 @@ class CreateRolesTables extends Migration
     public function down()
     {
         Schema::dropIfExists('role_user');
-        Schema::dropIfExists('ability_role');
-        Schema::dropIfExists('abilities');
         Schema::dropIfExists('roles');
     }
 }

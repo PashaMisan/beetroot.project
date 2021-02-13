@@ -38,11 +38,5 @@ class UsersSeeder extends Seeder
         }
 
         DB::table('role_user')->insert($roleUser);
-
-        DB::table('ability_role')->insert([
-            'role_id' => 1,
-            'ability_id' => 1
-        ]);
-
     }
 }

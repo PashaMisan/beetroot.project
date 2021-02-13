@@ -43,7 +43,6 @@ class DatabaseSeeder extends Seeder
     ];
 
     public const ROLES = ['administrator', 'waiter'];
-    public const ABILITIES = ['change_menu'];
 
     /**
      * Seed the application's database.
@@ -53,7 +52,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call(RolesSeeder::class);
-         $this->call(AbilitiesSeeder::class);
          $this->call(UsersSeeder::class);
          $this->call(SectionsSeeder::class);
          $this->call(ProductsSeeder::class);
