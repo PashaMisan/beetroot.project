@@ -44,7 +44,6 @@ class CartController extends Controller
      */
     public function index()
     {
-        //TODO Добавить возможность послать запрос на чек
         $orders = $this->pullUpProducts();
 
         return view('cart', [
@@ -148,19 +147,25 @@ class CartController extends Controller
      */
     public function payTheBill()
     {
-        $key = Cookie::get('table_key');
-        $order = Order::where('key', $key)->first();
-        $carts = $order->carts()->get();
+        // Получаем Order по ключу столика в куках пользователя
+        $order = Order::getOrderByCookiesKey();
 
-        foreach ($carts as $cart) {
-            //TODO Добавить сообщение что не все товары были подтверждены официантом
-            if ($cart->condition_id !== 2) return redirect(route('cart'));
+        // Проверяем, есть ли у всех Cart, которые пренадлежат Order, состояние Accepted
+        if ($order->isAllCartsAccepted()) {
+
+            // Если у всех есть - меняем статус Order на Payment request
+            $order->update(['status_id' => 4]);
+            $message = 'Payment request received, please wait for a waiter.';
+
+        } else {
+
+            // Если не у всех - стату остается прежним
+            $message = 'Some of your orders are pending, please try again later.';
+
         }
 
-        $order->update(['status_id' => 4]);
-
-        //TODO Добавить сообщение что запрос отправлен официанту
-        return redirect(route('cart'));
+        // В любом случае пользователю выводится соответствующее сообщение
+        return redirect(route('cart'))->with(compact('message'));
     }
 
     /**

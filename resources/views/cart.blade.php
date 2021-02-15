@@ -19,6 +19,23 @@
         </div>
     </section>
 
+    @if (session('message'))
+
+    <section class="mt-2 text-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+                <div class="col-md-6 ftco-animate text-center">
+                    <div class="text py-4 d-block">
+                        <h2 class="heading"><span>{{ session('message') }}</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @endif
+
     <section class="ftco-section ftco-cart">
         <div class="container">
             <div class="row">

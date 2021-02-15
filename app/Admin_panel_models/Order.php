@@ -121,6 +121,21 @@ class Order extends Model
     }
 
     /**
+     * Метод проверяет, все ли Carts у данного Order находятся в статусе Accepted.
+     *
+     * @return bool
+     */
+    public function isAllCartsAccepted(): bool
+    {
+
+        foreach ($this->carts()->get() as $cart) {
+            if ($cart->condition_id !== 2) return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Метод возвращает Order по ключу в cookies.
      *
      * @return mixed
