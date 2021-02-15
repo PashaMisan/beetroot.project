@@ -1,5 +1,5 @@
 <?php
-//TODO Очистить корзину пользователя если у него нет активного ключа столика.
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,12 +11,22 @@
 |
 */
 
+// Общедоступные роуты
 Route::get('/', 'MainPageController@index')->name('main');
-Route::get('/menu', 'MenuPageController@index')->name('menu');
 
-//TODO при выходе из аккаунта удалять ключ столика
+// Роуты авторизации
 Auth::routes();
 
+
+
+
+
+
+
+
+
+// Не сортированые
+Route::get('/menu', 'MenuPageController@index')->name('menu');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/setKey', 'Admin_panel\TableKeyController@setKey')->name('set_key');
 Route::get('/productSingle/{product}', 'ProductSingleController@index')->name('product_single');
@@ -33,7 +43,6 @@ Route::group([
     Route::get('/cart/confirm', 'CartController@confirmOrder')->name('confirm');
     Route::get('/cart/payTheBill', 'CartController@payTheBill')->name('pay_the_bill');
 });
-
 
 //Admin panel rout groups
 
