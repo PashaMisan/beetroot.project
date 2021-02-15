@@ -90,7 +90,7 @@
                 </div>
                 <div class="book p-4" style="min-height: 300px">
                     <div class="col-lg align-self-sm-end">
-                        <div class="testimony overlay">
+                        <div class="testimony">
                             <blockquote>
                                 <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however.&rdquo;</p>
                             </blockquote>

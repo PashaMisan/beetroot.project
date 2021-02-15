@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin_panel_models\Product;
+use App\Services\OrdersInCookieService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +19,7 @@ use Illuminate\View\View;
 class ProductSingleController extends Controller
 {
     /**
-     * Отображает карточку блюда с возможностью выбора количества.
+     * Отображает карточку блюда.
      *
      * @param Product $product
      * @return Application|Factory|View
@@ -34,24 +35,19 @@ class ProductSingleController extends Controller
      * Метод принимает request параметры, и зписывает их в cookie пользователя;
      *
      * @param Request $request
+     * @param OrdersInCookieService $ordersInCookieService
      * @return Application|RedirectResponse|Redirector
      */
-    public function addToCart(Request $request)
+    public function addToCart(Request $request, OrdersInCookieService $ordersInCookieService)
     {
-        //Массив $request будет содержать следующую структуру ["quantity" => int, "product_id" => int];
+        // Массив $request будет содержать следующую структуру ["quantity" => int, "product_id" => int];
          $request = $request->validate([
              'quantity' => 'required|min:0|numeric|not_in:0',
              'product_id' => 'required|min:0|numeric|not_in:0|exists:products,id',
         ]);
 
-        //Проверяется существование куки 'orders'.
-        //Если существует - распаковывается, если нет - объявляется пустой массив;
-        $orders = (Cookie::has('orders')) ? unserialize(Cookie::get('orders')) : [];
-
-        //В массив по ключу product_id записывается значение количества;
-        $orders[$request['product_id']] = (array) $request['quantity'];
-
-        Cookie::queue('orders', serialize($orders), 480);
+         // Добавляет в корзину новый продукт и его количество
+         $ordersInCookieService->addToCart($request);
 
         return redirect(route('cart'));
     }

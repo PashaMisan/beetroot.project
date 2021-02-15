@@ -21,7 +21,6 @@
         </div>
     </section>
 
-    @HasNotKey
     <section class="ftco-intro">
         <div class="container-wrap">
             <div class="wrap d-md-flex align-items-xl-end">
@@ -38,7 +37,7 @@
                             <div class="icon"><span class="icon-my_location"></span></div>
                             <div class="text">
                                 <h3>198 West 21th Street</h3>
-                                <p> 203 Fake St. Mountain View, San Francisco, California, USA</p>
+                                <p>	203 Fake St. Mountain View, San Francisco, California, USA</p>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex ftco-animate">
@@ -50,72 +49,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="book p-4">
-                    <h3>Book a Table</h3>
-                    <form action="#" class="appointment-form">
-                        <div class="d-md-flex">
-                            <div class="form-group">
-                                <label>
-                                    <input type="text" class="form-control" placeholder="First Name">
-                                </label>
-                            </div>
-                            <div class="form-group ml-md-4">
-                                <label>
-                                    <input type="text" class="form-control" placeholder="Last Name">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="d-md-flex">
-                            <div class="form-group">
-                                <div class="input-wrap">
-                                    <div class="icon"><span class="ion-md-calendar"></span></div>
-                                    <label>
-                                        <input type="text" class="form-control appointment_date" placeholder="Date">
-                                    </label>
+                <div class="book p-4" style="min-height: 300px">
+                    <div class="col-lg align-self-sm-end ftco-animate">
+                        <div class="testimony">
+                            <blockquote>
+                                <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small  line of blind text by the name. &rdquo;</p>
+                            </blockquote>
+                            <div class="author d-flex mt-4">
+                                <div class="image mr-3 align-self-center">
+                                    <img src="images/person_3.jpg" alt="">
                                 </div>
-                            </div>
-                            <div class="form-group ml-md-4">
-                                <div class="input-wrap">
-                                    <div class="icon"><span class="ion-ios-clock"></span></div>
-                                    <label>
-                                        <input type="text" class="form-control appointment_time" placeholder="Time">
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group ml-md-4">
-                                <label>
-                                    <input type="text" class="form-control" placeholder="Phone">
-                                </label>
+                                <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
                             </div>
                         </div>
-                        <div class="d-md-flex">
-                            <div class="form-group">
-                                <label for=""></label><textarea name="" id="" cols="30" rows="2" class="form-control"
-                                                                placeholder="Message"></textarea>
-                            </div>
-                            <div class="form-group ml-md-4">
-                                <input type="submit" value="Appointment" class="btn btn-white py-3 px-4">
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    @endHasNotKey
 
-    @HasKey
-    @OrderNotInPaymentRequestStatus
+
     <section class="mt-2 text-center">
 
         <div class="overlay"></div>
         <div class="container">
             <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
-                <div class="col-md-8 col-sm-12 text-center ftco-animate">
+                <div class="col-md-8 col-sm-12 text-center ftco-animate pt-3">
+
+                    @HasKey
+                    @OrderNotInPaymentRequestStatus
                     <p>
                         <a onclick="callWaiter()" href="javascript:void(0)" class="btn btn-primary p-3 px-xl-4 py-xl-3">Call waiter</a>
                     </p>
+                    @endOrderNotInPaymentRequestStatus
+                    @endHasKey
+
                 </div>
 
                 {{-- Div будет отображать сообщение полученые из Ajax запроса --}}
@@ -130,10 +99,8 @@
         </div>
 
     </section>
-    @endOrderNotInPaymentRequestStatus
-    @endHasKey
 
-    <section class="ftco-section">
+    <section class="ftco-section pt-3">
         <div class="container">
 
             <div class="row">
