@@ -53,9 +53,9 @@
             </td>
             <td>
                 <a href="{{ route('products.edit', ['id' => $product->id]) }}"
-                   class="badge badge-primary">Edit</a>
+                   class="badge badge-primary m-1">Edit</a>
 
-                <form
+                <form class="m-1"
                     action="{{ route('products.destroy', ['id' => $product->id]) }}"
                     method="post">
                     @csrf

@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('key', 5);
             $table->timestamps();
         });
-        //TODO Прописать связи
+
         Schema::table('orders', function ($table) {
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');

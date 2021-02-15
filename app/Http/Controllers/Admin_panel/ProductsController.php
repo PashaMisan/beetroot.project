@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin_panel;
 use App\Admin_panel_models\Product;
 use App\Admin_panel_models\Section;
 use App\Http\Requests\StoreProduct;
+use App\Http\Requests\UpdateProduct;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -51,9 +52,7 @@ class ProductsController extends Controller
     public function store(StoreProduct $request)
     {
         Product::create($this->setpositionToRequest($request))
-            ->update([
-            'image' => $request->image->store('uploads', 'public')
-        ]);
+            ->update(['image' => $request->image->store('uploads', 'public')]);
 
         return redirect(route('products.index'));
     }
@@ -88,13 +87,13 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreProduct $request
+     * @param UpdateProduct $request
      * @param Product $product
      * @return Application|RedirectResponse|Response|Redirector
      */
-    public function update(StoreProduct $request, Product $product)
+    public function update(UpdateProduct $request, Product $product)
     {
-
+        // Если инпут name="status" был пустым, значит необходимо указать что статус продука равен нулю
         ($request->status) ?? $request->merge(['status' => 0]);
 
         if ($request->section_id == $product->section_id) {
@@ -104,8 +103,7 @@ class ProductsController extends Controller
             $product->incrementRowBySection();
         }
 
-        $product ->update([
-            'image' => $request->image->store('uploads', 'public')]);
+        if ($request->has('image')) $product->update(['image' => $request->image->store('uploads', 'public')]);
 
         return redirect(route('products.index'));
     }

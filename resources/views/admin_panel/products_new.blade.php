@@ -86,25 +86,27 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
 
-                                <div class="form-group row">
-                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Weight</label>
-                                    <div class="col-sm-4 col-lg-3 mb-3 mb-sm-0">
-                                        <input id="product_weight" type="text" class="form-control"
-                                               name="weight" value="{{ old('weight') }}">
-                                    </div>
-                                    @error('weight')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                <div class="form-row">
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                        <label for="product_weight">Weight</label>
+                                        <input type="text" class="form-control" id="product_weight" name="weight"
+                                               value="{{ old('weight') }}">
 
-                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Price</label>
-                                    <div class="col-sm-4 col-lg-3">
-                                        <input id="product_price" type="text" class="form-control" name="price"
+                                        @error('weight')
+                                        <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2">
+                                        <label for="product_price">Price</label>
+                                        <input type="text" class="form-control" id="product_price" name="price"
                                                value="{{ old('price') }}">
-                                    </div>
-                                    @error('price')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
 
+                                        @error('price')
+                                        <div class="alert alert-danger mt-3">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
                                 </div>
 
                                 <div class="row">
