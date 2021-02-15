@@ -16,13 +16,28 @@ Route::get('/', 'MainPageController@index')->name('main');
 Route::get('/menu', 'MenuPageController@index')->name('menu');
 Route::get('/productSingle/{product}', 'ProductSingleController@index')->name('product_single');
 
-//Группа роутов которые проходят проверку  на существование ключа 'table_key' в cookies пользователя
+//Группа роутов которые проходят проверку на существование ключа 'table_key' в cookies пользователя
 Route::group([
     'middleware' => ['checkTableKey']
 ], function () {
     Route::post('/waiter_call', 'MenuPageController@waiterCallAjax')->name('waiter_call');
     Route::post('/productSingle', 'ProductSingleController@addToCart')->name('add_to_cart');
 });
+
+//Группа роутов для работы со страницей корзины
+Route::group([
+    'prefix' => 'cart',
+    'middleware' => ['checkTableKey']
+], function () {
+    Route::get('/', 'CartController@index')->name('cart');
+});
+
+
+
+
+
+
+
 
 // Роуты авторизации
 Auth::routes();
@@ -44,7 +59,7 @@ Route::group([
     'middleware' => ['checkTableKey']
 ], function () {
 
-    Route::get('/cart', 'CartController@index')->name('cart');
+
     Route::post('/cart/remove', 'CartController@removeFromCartAjax')->name('remove_product_ajax');
     Route::post('/cart/fullPrice', 'CartController@fullPriceAjax')->name('full_price_ajax');
     Route::get('/cart/confirm', 'CartController@confirmOrder')->name('confirm');

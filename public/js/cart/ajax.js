@@ -11,12 +11,14 @@ function tableUpdate(product_id, route, val=false) {
 
                 if (typeof data.html !== 'undefined') {
                     document.getElementById('table-cart').innerHTML = data.html
+                    document.getElementById('totalPrice').innerHTML = data.totalPrice
                 }
 
                 if (typeof data.fullPrice !== 'undefined') {
                     document.getElementById('totalPrice').innerHTML = data.totalPrice
                     document.getElementById('fullPrice' + product_id).innerHTML = data.fullPrice
                 }
+
             }
 
             if (data.status === 400) {
