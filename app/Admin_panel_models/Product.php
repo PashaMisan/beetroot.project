@@ -4,10 +4,22 @@ namespace App\Admin_panel_models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Product
+ * @package App\Admin_panel_models
+ */
 class Product extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * Метод меняет статус продукта на противоположный.
+     *
+     * @return mixed
+     */
     public function changeStatus()
     {
         $this->update([
@@ -17,6 +29,13 @@ class Product extends Model
         return $this->status;
     }
 
+    /**
+     * Метод перемещает продукт в списке по полю 'position'.
+     *
+     * @param $position
+     * @param $section
+     * @return bool
+     */
     static function swapping($position, $section)
     {
         $sections = Product::whereSection_id($section)

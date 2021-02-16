@@ -3,11 +3,24 @@
 namespace App\Admin_panel_models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * Class Table
+ * @package App\Admin_panel_models
+ */
 class Table extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $fillable = ['number'];
 
+    /**
+     * Каждый Table имеет свой Order вместе с User и Status.
+     *
+     * @return HasOne
+     */
     public function order()
     {
         return $this->hasOne(Order::class)->with('user', 'status');
