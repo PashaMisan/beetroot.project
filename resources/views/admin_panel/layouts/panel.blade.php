@@ -78,12 +78,39 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
+
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link nav-user-img" href="#" data-toggle="collapse" aria-expanded="false"
+                               data-target="#submenu-0" aria-controls="submenu-0" >
+                                <img
+                                    src="{{ asset('admin_panel/assets/images/avatar-1.jpg') }}" alt=""
+                                    class="user-avatar-md rounded-circle"><span class="ml-2">{{ Auth::user()->name }}</span></a>
+                            <div id="submenu-0" class="collapse submenu" style="">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('main') }}"><i
+                                                class="fas fa-external-link-square-alt mr-2"></i>Exit</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form2').submit();">
+                                            <i class="fas fa-power-off mr-2"></i>{{ __('Logout') }}</a>
+
+                                        <form id="logout-form2" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
                         <li class="nav-divider">
                             Menu
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link active"
-                               href="{{ route('admin_panel_main') }}" {{--data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"--}}><i
+                               href="{{ route('admin_panel_main') }}"><i
                                     class="fa fa-fw fa-user-circle"></i>Dashboard <span
                                     class="badge badge-success">6</span></a>
                         </li>

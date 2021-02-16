@@ -59,7 +59,7 @@
 
 @section('JavaScripts')
     <script>
-        //Скрипт собирает все элементы с классом paument и выделяет их мигающими цветом
+        //Скрипт собирает все элементы с классом payment и выделяет их мигающими цветом
         setInterval(() =>
             document.querySelectorAll(".payment").forEach(element => element.classList.toggle("bg-secondary")
             ), 700)

@@ -96,7 +96,7 @@
                             </blockquote>
                             <div class="author d-flex mt-4">
                                 <div class="image mr-3 align-self-center">
-                                    <img src="images/person_2.jpg" alt="">
+                                    <img src="{{ asset('images/person_2.jpg') }}" alt="">
                                 </div>
                                 <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
                             </div>
@@ -313,7 +313,6 @@
         </div>
     </section>
 
-
     <section class="ftco-section img" id="ftco-testimony" style="background-image: url({{ asset('images/bg_1.jpg') }});"
              data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
@@ -337,7 +336,7 @@
                         </blockquote>
                         <div class="author d-flex mt-4">
                             <div class="image mr-3 align-self-center">
-                                <img src="{{ asset('images/person_1.jpg') }}" alt="">
+                                <img src="{{ asset('images/person_3.jpg') }}" alt="">
                             </div>
                             <div class="name align-self-center">Louise Kelly <span
                                     class="position">Illustrator Designer</span></div>

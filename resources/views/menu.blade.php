@@ -52,9 +52,6 @@
                 <div class="book p-4" style="min-height: 300px">
 
                     @HasKey
-
-
-
                     <div class="col-lg align-self-sm-end ftco-animate">
                         <div class="testimony">
                             <div class="d-flex justify-content-center">
@@ -65,9 +62,6 @@
                             </blockquote>
                         </div>
                     </div>
-
-
-
                     @endHasKey
 
                     @HasNotKey
@@ -78,7 +72,7 @@
                             </blockquote>
                             <div class="author d-flex mt-4">
                                 <div class="image mr-3 align-self-center">
-                                    <img src="images/person_3.jpg" alt="">
+                                    <img src="{{ asset('images/person_3.jpg') }}" alt="">
                                 </div>
                                 <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
                             </div>
@@ -90,7 +84,6 @@
             </div>
         </div>
     </section>
-
 
     <section class="mt-2 text-center">
 
