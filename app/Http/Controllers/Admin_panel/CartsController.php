@@ -15,7 +15,7 @@ use Illuminate\View\View;
 class CartsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Выводит все Carts в состоянии Sent.
      *
      * @return Application|Factory|View
      */

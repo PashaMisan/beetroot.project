@@ -18,6 +18,10 @@ use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 use Throwable;
 
+/**
+ * Class ProductsController
+ * @package App\Http\Controllers\Admin_panel
+ */
 class ProductsController extends Controller
 {
     /**
@@ -121,6 +125,12 @@ class ProductsController extends Controller
         return redirect(route('products.index'));
     }
 
+    /**
+     * Метод принимает айди продукта для которого нужно изменить статус из текущего на противоположный.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function changeStatusAjax(Request $request)
     {
         $product = Product::find($request->id);
@@ -144,7 +154,7 @@ class ProductsController extends Controller
      * @return JsonResponse
      * @throws Throwable
      */
-    public function changePosition()
+    public function changePositionAjax()
     {
         list($position, $section, $move) = request('value');
 

@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use Throwable;
 
+/**
+ * Class MainPageController
+ * @package App\Http\Controllers\Admin_panel
+ */
 class MainPageController extends Controller
 {
     /**

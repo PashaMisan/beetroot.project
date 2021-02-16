@@ -9,11 +9,8 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class StaffController extends Controller
@@ -32,16 +29,6 @@ class StaffController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param StaffCreateStore $request
@@ -51,40 +38,6 @@ class StaffController extends Controller
     {
         User::create($request->all())->assignRole(Role::find($request->role));
         return redirect(route('users.index'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     * @return void
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param User $user
-     * @return void
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param User $user
-     * @return Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
     }
 
     /**

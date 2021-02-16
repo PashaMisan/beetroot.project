@@ -9,6 +9,10 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
+/**
+ * Class InvoiceController
+ * @package App\Http\Controllers\Admin_panel
+ */
 class InvoiceController extends Controller
 {
     /**

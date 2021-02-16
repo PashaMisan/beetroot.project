@@ -41,51 +41,28 @@ Route::group([
     Route::get('payTheBill', 'CartController@payTheBill')->name('pay_the_bill');
 });
 
-
-
-
-
-
-
-
-
-
-
-// Не сортированые
-
-
-
-
-
-//Admin panel rout groups
-
-//Dashboard
-
-//All registered users have this ability
+// Группа роутов для работы с панелью администратора, без статуса администратора
 Route::group([
     'middleware' => ['auth'],
     'prefix' => 'admin-panel'
 ], function () {
-    Route::get('', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
 
-    //Запросы из панели официанта
+    // Общие роуты
+    Route::get('/', 'Admin_panel\MainPageController@index')->name('admin_panel_main');
+
+    // Роуты для работы с виджетом официанта
     Route::post('openTable', 'Admin_panel\WaiterDashboardController@openTable')->name('open_table');
     Route::get('{invoice}/closeTable', 'Admin_panel\WaiterDashboardController@closeTable')->name('close_table');
-    //Если столик в статусе Call то переход по этому роуту изменит статус на open
     Route::get('{id}/accept', 'Admin_panel\WaiterDashboardController@acceptTable')->name('accept_table');
-    //Запрос на вывод счета
     Route::get('invoice/{invoice}', 'Admin_panel\InvoiceController@show')->name('invoice');
-
-    //В cart содержатся продукты которые были заказаны
-    Route::resource('carts', 'Admin_panel\CartsController');
+    Route::resource('carts', 'Admin_panel\CartsController')->only(['index', 'destroy']);
     Route::get('acceptCarts/{order}', 'Admin_panel\CartsController@acceptCarts')->name('accept_carts');
 
-    //Обрабатывает Ajax запрос с главной странички админ панели
-    Route::post('/mainPageAjax', 'Admin_panel\MainPageController@answerAjax')
-        ->name('main_page_ajax');
+    // Роут который обрабатывает Ajax запрос с главной страницы панели администратора
+    Route::post('/mainPageAjax', 'Admin_panel\MainPageController@answerAjax')->name('main_page_ajax');
 });
 
-//Abilities that can only have an administrator
+// Группа роутов доступная только для пользователя со статусом администратора
 Route::group([
     'middleware' => ['auth', 'admin'],
     'prefix' => 'admin-panel'
@@ -98,7 +75,8 @@ Route::group([
 
     //MenuCreator->Products
     Route::resource('products', 'Admin_panel\ProductsController');
-    Route::post('product/changePosition', 'Admin_panel\ProductsController@changePosition')->name('p_position_change');
+    Route::post('product/changePositionAjax', 'Admin_panel\ProductsController@changePositionAjax')
+        ->name('p_position_change');
     Route::post('product/change-status', 'Admin_panel\ProductsController@changeStatusAjax')
         ->name('change_product_status_ajax');
 
@@ -106,7 +84,5 @@ Route::group([
     Route::resource('users', 'Admin_panel\StaffController')->only(['index', 'store', 'destroy']);
 
     //Tables->Manage
-    Route::resource('tables', 'Admin_panel\TablesController');
+    Route::resource('tables', 'Admin_panel\TablesController')->only(['index', 'store', 'destroy']);
 });
-
-

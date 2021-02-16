@@ -12,9 +12,19 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Throwable;
 
+/**
+ * Class WaiterDashboardController
+ * @package App\Http\Controllers\Admin_panel
+ */
 class WaiterDashboardController extends Controller
 {
+    /**
+     * Метод собирает открытые столики текущего официанта, а также собирает свободные столики.
+     *
+     * @return array
+     */
     static function waiterDashboard()
     {
         return $data[] = [
@@ -26,6 +36,12 @@ class WaiterDashboardController extends Controller
         ];
     }
 
+    /**
+     * Метод возвращает сформированное отображение таблицы для виджета официанта.
+     *
+     * @return array|string
+     * @throws Throwable
+     */
     static function myTablesRender()
     {
         return view('admin_panel.dashboards.ajax.waiterMyTables')
@@ -54,6 +70,12 @@ class WaiterDashboardController extends Controller
         return redirect(route('admin_panel_main'));
     }
 
+    /**
+     * Метод закрывает заказ активного столика.
+     *
+     * @param Invoice $invoice
+     * @return Application|RedirectResponse|Redirector
+     */
     public function closeTable(Invoice $invoice)
     {
         $invoice->order->delete();
@@ -73,6 +95,4 @@ class WaiterDashboardController extends Controller
 
         return redirect(route('admin_panel_main'));
     }
-
-
 }

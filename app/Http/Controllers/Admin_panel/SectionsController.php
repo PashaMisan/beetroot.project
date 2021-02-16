@@ -10,9 +10,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ * Class SectionsController
+ * @package App\Http\Controllers\Admin_panel
+ */
 class SectionsController extends Controller
 {
     /**
@@ -82,6 +85,12 @@ class SectionsController extends Controller
         return redirect(route('sections.index'));
     }
 
+    /**
+     * Метод принимает позицию элемента в списке, и меняет ее на единицу меньше.
+     *
+     * @param $position
+     * @return Application|RedirectResponse|Redirector
+     */
     public function positionUp($position)
     {
         if ((int)$position !== 1) {
@@ -90,6 +99,12 @@ class SectionsController extends Controller
         return redirect(route('sections.index'));
     }
 
+    /**
+     * Метод принимает позицию элемента в списке, и меняет ее на единицу больше.
+     *
+     * @param $position
+     * @return Application|RedirectResponse|Redirector
+     */
     public function positionDown($position)
     {
         if ((int)$position !== Section::max('position')) {
