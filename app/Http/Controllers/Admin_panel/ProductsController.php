@@ -170,6 +170,8 @@ class ProductsController extends Controller
     }
 
     /**
+     * Устанавливает значение поля 'position' для нового продукта.
+     *
      * @param Request $request
      * @return array
      */

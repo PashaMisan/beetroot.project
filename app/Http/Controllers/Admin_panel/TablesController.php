@@ -12,6 +12,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
+/**
+ * Class TablesController
+ * @package App\Http\Controllers\Admin_panel
+ */
 class TablesController extends Controller
 {
     /**

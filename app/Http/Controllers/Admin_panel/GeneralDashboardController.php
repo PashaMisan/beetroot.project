@@ -8,6 +8,10 @@ use App\User;
 use Illuminate\Support\Facades\Cache;
 use Throwable;
 
+/**
+ * Class GeneralDashboardController
+ * @package App\Http\Controllers\Admin_panel
+ */
 class GeneralDashboardController extends Controller
 {
     /**
