@@ -11,12 +11,17 @@
 |
 */
 
+// Роуты авторизации
+Auth::routes();
+
 // Общедоступные роуты
 Route::get('/', 'MainPageController@index')->name('main');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/menu', 'MenuPageController@index')->name('menu');
 Route::get('/productSingle/{product}', 'ProductSingleController@index')->name('product_single');
+Route::get('/setKey', 'Admin_panel\TableKeyController@setKey')->name('set_key');
 
-//Группа роутов которые проходят проверку на существование ключа 'table_key' в cookies пользователя
+// Группа роутов которые проходят проверку на существование ключа 'table_key' в cookies пользователя
 Route::group([
     'middleware' => ['checkTableKey']
 ], function () {
@@ -24,23 +29,19 @@ Route::group([
     Route::post('/productSingle', 'ProductSingleController@addToCart')->name('add_to_cart');
 });
 
-//Группа роутов для работы со страницей корзины
+// Группа роутов для работы со страницей корзины
 Route::group([
     'prefix' => 'cart',
     'middleware' => ['checkTableKey']
 ], function () {
     Route::get('/', 'CartController@index')->name('cart');
+    Route::post('remove', 'CartController@removeFromCartAjax')->name('remove_product_ajax');
+    Route::post('fullPrice', 'CartController@fullPriceAjax')->name('full_price_ajax');
+    Route::get('confirm', 'CartController@confirmOrder')->name('confirm');
+    Route::get('payTheBill', 'CartController@payTheBill')->name('pay_the_bill');
 });
 
 
-
-
-
-
-
-
-// Роуты авторизации
-Auth::routes();
 
 
 
@@ -51,20 +52,10 @@ Auth::routes();
 
 
 // Не сортированые
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/setKey', 'Admin_panel\TableKeyController@setKey')->name('set_key');
-
-//Группа роутов которые проходят проверку  на существование ключа 'table_key' в cookies пользователя
-Route::group([
-    'middleware' => ['checkTableKey']
-], function () {
 
 
-    Route::post('/cart/remove', 'CartController@removeFromCartAjax')->name('remove_product_ajax');
-    Route::post('/cart/fullPrice', 'CartController@fullPriceAjax')->name('full_price_ajax');
-    Route::get('/cart/confirm', 'CartController@confirmOrder')->name('confirm');
-    Route::get('/cart/payTheBill', 'CartController@payTheBill')->name('pay_the_bill');
-});
+
+
 
 //Admin panel rout groups
 

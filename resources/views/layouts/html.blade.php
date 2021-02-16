@@ -107,7 +107,7 @@
                     <div class="block-21 mb-4 d-flex">
                         <a class="blog-img mr-4" style="background-image: url({{ asset('images/image_1.jpg') }});"></a>
                         <div class="text">
-                            <h3 class="heading"><a href="#">There may be a post in the future</a></h3>
+                            <h3 class="heading"><a>There may be a post in the future</a></h3>
                             <div class="meta">
                                 <div><a><span class="icon-calendar"></span> Date</a></div>
                                 <div><a><span class="icon-person"></span> Author</a></div>
@@ -118,7 +118,7 @@
                     <div class="block-21 mb-4 d-flex">
                         <a class="blog-img mr-4" style="background-image: url({{ asset('images/image_2.jpg') }});"></a>
                         <div class="text">
-                            <h3 class="heading"><a href="#">There may be a post in the future</a></h3>
+                            <h3 class="heading"><a>There may be a post in the future</a></h3>
                             <div class="meta">
                                 <div><a><span class="icon-calendar"></span> Date</a></div>
                                 <div><a><span class="icon-person"></span> Author</a></div>

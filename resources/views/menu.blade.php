@@ -50,6 +50,27 @@
                     </div>
                 </div>
                 <div class="book p-4" style="min-height: 300px">
+
+                    @HasKey
+
+
+
+                    <div class="col-lg align-self-sm-end ftco-animate">
+                        <div class="testimony">
+                            <div class="d-flex justify-content-center">
+                                {{ $qr }}
+                            </div>
+                            <blockquote class="text-center">
+                                <p>Scan it to join the table</p>
+                            </blockquote>
+                        </div>
+                    </div>
+
+
+
+                    @endHasKey
+
+                    @HasNotKey
                     <div class="col-lg align-self-sm-end ftco-animate">
                         <div class="testimony">
                             <blockquote>
@@ -63,6 +84,8 @@
                             </div>
                         </div>
                     </div>
+                    @endHasNotKey
+
                 </div>
             </div>
         </div>

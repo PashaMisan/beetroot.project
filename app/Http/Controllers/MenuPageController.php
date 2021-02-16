@@ -7,7 +7,9 @@ use App\Admin_panel_models\Section;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\View\View;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /**
  * Class MenuPageController
@@ -34,7 +36,11 @@ class MenuPageController extends Controller
         return view('menu', [
             'menu' => $menu->filter(function ($value) {
                 return (!empty($value->products[0])) ? $value : false;
-            })->values()
+            })->values(),
+            'qr' => QrCode::size(150)
+                ->margin(1)
+                ->backgroundColor(255, 255, 255, 50)
+                ->generate(route('set_key', ['table_key' => Cookie::get('table_key')])),
         ]);
     }
 
@@ -43,7 +49,7 @@ class MenuPageController extends Controller
      *
      * @return JsonResponse
      */
-    public  function waiterCallAjax()
+    public function waiterCallAjax()
     {
         //Получаем Order по ключу в cookies.
         $order = Order::getOrderByCookiesKey();
