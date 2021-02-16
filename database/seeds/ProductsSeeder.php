@@ -4,6 +4,7 @@ use App\Admin_panel_models\Section;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class ProductsSeeder extends Seeder
@@ -15,6 +16,8 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
+        File::makeDirectory('storage/app/public/uploads/');
+
         for ($i = 1; $i <= 27; $i++) {
             copy('public/images/randomMenu/' . $i . '.jpg', 'storage/app/public/uploads/' . $i . '.jpg');
         }
