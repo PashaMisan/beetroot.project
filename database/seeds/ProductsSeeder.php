@@ -16,7 +16,9 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
-        File::makeDirectory('storage/app/public/uploads/');
+        $path = 'storage/app/public/uploads/';
+
+        if(!File::exists($path)) File::makeDirectory($path);
 
         for ($i = 1; $i <= 27; $i++) {
             copy('public/images/randomMenu/' . $i . '.jpg', 'storage/app/public/uploads/' . $i . '.jpg');
