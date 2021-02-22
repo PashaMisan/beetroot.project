@@ -52,7 +52,7 @@
 	                   <i class="icon-minus"></i>
 	                	</button>
 	            		</span>
-                                <label for="quantity"></label><input type="text" id="quantity" name="quantity"
+                                <label for="quantity"></label><input type="number" id="quantity" name="quantity"
                                                                      class="form-control input-number" value="1"
                                                                      min="1" max="100">
                                 <span class="input-group-btn ml-2">
